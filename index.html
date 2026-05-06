@@ -93,7 +93,6 @@
                 A trip to Seoul in just 1 minute! <br/>
                 Find your K-Spicy level and get a 0% fail-rate K-Food recommendation.
             </p>
-            <!-- Adjusted Hero Button for better Mobile Experience -->
             <button onclick="startQuiz()" class="group bg-white text-black px-8 py-5 md:px-14 md:py-6 rounded-full font-black text-sm md:text-[13px] uppercase tracking-[0.25em] hover:bg-brandRed hover:text-white transition-all duration-300 flex items-center gap-4 mx-auto shadow-2xl font-sans">
                 <span data-t="hero_btn">Start The Test</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
             </button>
@@ -253,18 +252,27 @@
 
         window.dataLayer = window.dataLayer || [];
 
+        // --- IMAGE PRELOADING LOGIC ---
+        function preloadAllImages() {
+            const imagesToPreload = [
+                ...CONTENT.en.questions.map(q => q.image),
+                ...Object.values(RESULTS).map(r => r.image)
+            ];
+            imagesToPreload.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        }
+
         function setLanguage(lang) {
             currentLang = lang;
             const c = CONTENT[lang];
-            
             document.getElementById('lang-id').classList.toggle('lang-active', lang === 'id');
             document.getElementById('lang-en').classList.toggle('lang-active', lang === 'en');
-            
             document.querySelectorAll('[data-t]').forEach(el => {
                 const key = el.getAttribute('data-t');
                 if (c[key]) el.innerHTML = c[key];
             });
-
             document.getElementById('lang-label').innerText = c.lang_label;
             document.getElementById('hero-title').innerHTML = c.hero_title;
             document.getElementById('hero-desc').innerHTML = c.hero_desc;
@@ -274,7 +282,6 @@
             document.getElementById('pre-result-btn').innerText = c.pre_result_btn;
             document.getElementById('result-save-hint').innerText = c.res_hint;
             document.getElementById('copyright-text').innerHTML = c.copyright;
-
             if (!document.getElementById('view-quiz').classList.contains('hidden')) {
                 renderQuestion();
             }
@@ -310,18 +317,14 @@
             const c = CONTENT[currentLang];
             const questionsArr = c.questions;
             const q = questionsArr[currentQuestionIndex];
-            
             document.getElementById('quiz-progress-text').innerText = c.quiz_progress.replace('{n}', currentQuestionIndex + 1).replace('{total}', questionsArr.length);
             document.getElementById('quiz-progress-bar').style.width = `${((currentQuestionIndex + 1) / questionsArr.length) * 100}%`;
-            
             const qImg = document.getElementById('quiz-image');
             if(q.image) { qImg.src = q.image; qImg.classList.remove('hidden'); qImg.onerror = function() { this.classList.add('hidden'); }; } 
             else { qImg.classList.add('hidden'); }
-            
             document.getElementById('quiz-question').innerText = q.question;
             const optionsContainer = document.getElementById('quiz-options');
             optionsContainer.innerHTML = '';
-            
             q.options.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = `w-full text-left p-6 md:p-8 rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 active:scale-95 hover:border-brandRed/50 hover:bg-brandRed/10`;
@@ -419,6 +422,7 @@
 
         window.onload = () => {
             setLanguage('en');
+            preloadAllImages(); // 페이지 로드 시 이미지 미리 불러오기 실행
         };
     </script>
 </body>
