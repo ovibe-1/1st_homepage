@@ -74,7 +74,7 @@
 
         .glass-card {
             background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
         }
@@ -132,7 +132,6 @@
             <div id="hero-badge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-deepSky text-[9px] md:text-[10px] font-black uppercase tracking-[0.15em] mb-4 shadow-sm border border-skyBlue/20">
                 <i class="fa-solid fa-location-dot"></i> In-Flight to Seoul
             </div>
-            <!-- 색상 검정색(text-gray-900) 복구 -->
             <h1 id="hero-title" class="text-5xl md:text-8xl font-black text-gray-900 leading-[1.05] tracking-tighter mb-6 font-sans italic uppercase">
                 What's your <br/>
                 <span class="text-brandRed drop-shadow-sm">K-Spicy level?</span>
@@ -142,36 +141,36 @@
                 Find your K-Spicy level <br class="block md:hidden"/> 
                 and get a 0% fail-rate <span class="whitespace-nowrap font-bold text-gray-700">K-Food recommendation.</span>
             </p>
-            <!-- 시작 버튼: 모바일(w-90%) / 웹(md:w-fit) 반응형 크기 최적화 -->
-            <button onclick="startQuiz()" class="btn-hop group bg-white text-gray-900 w-[90%] md:w-fit md:min-w-[310px] px-8 md:px-14 py-6 md:py-8 rounded-full font-black text-xl md:text-2xl uppercase tracking-[0.1em] flex items-center justify-center gap-4 shadow-xl border border-gray-100 hover:bg-brandRed hover:text-white transition-all font-sans whitespace-nowrap mx-auto">
-                <span data-t="hero_btn">Start The Test</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-            </button>
+            <!-- 정렬 수정: 부모 컨테이너(w-full flex justify-center) 추가 -->
+            <div class="w-full flex justify-center">
+                <button onclick="startQuiz()" class="btn-hop group bg-white text-gray-900 w-[90%] md:w-fit md:min-w-[310px] px-8 md:px-14 py-6 md:py-8 rounded-full font-black text-xl md:text-2xl uppercase tracking-[0.1em] flex items-center justify-center gap-4 shadow-xl border border-gray-100 hover:bg-brandRed hover:text-white transition-all font-sans whitespace-nowrap">
+                    <span data-t="hero_btn">Start The Test</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
         </section>
 
         <!-- SECTION 2: QUIZ -->
-        <section id="view-quiz" class="hidden fade-in min-h-[80vh] py-8 px-5 flex flex-col items-center justify-center">
+        <section id="view-quiz" class="hidden fade-in min-h-[80vh] py-8 px-5 flex flex-col items-center justify-center text-left">
             <div class="w-full max-w-xl glass-card rounded-[40px] p-6 md:p-10">
-                <div class="flex justify-between items-center mb-5 text-left">
+                <div class="flex justify-between items-center mb-5">
                     <span id="quiz-progress-text" class="text-[10px] font-black uppercase tracking-widest text-deepSky font-sans">Question 1 of 6</span>
                 </div>
                 <div class="mb-6 h-1.5 w-full bg-white/50 rounded-full overflow-hidden shadow-inner">
                     <div id="quiz-progress-bar" class="h-full w-0 transition-all duration-500"></div>
                 </div>
                 
-                <div id="quiz-content" class="fade-in text-left">
+                <div id="quiz-content" class="fade-in">
                     <div class="window-frame mb-6">
-                        <img id="quiz-image" src="" alt="Quiz" class="w-full h-48 md:h-64 object-cover bg-gray-100" />
+                        <img id="quiz-image" src="" alt="Quiz" class="w-full h-44 md:h-60 object-cover bg-gray-100" />
                     </div>
-                    <!-- 질문 텍스트 크기: 한 단계 축소 (text-lg md:text-xl) -->
                     <h3 id="quiz-question" class="text-lg md:text-xl font-black text-gray-800 mb-8 leading-snug tracking-tight font-sans">Question</h3>
-                    <!-- 선택지 버튼 확대 (p-6, text-base) -->
                     <div class="grid gap-3.5" id="quiz-options"></div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION 3: ANALYZING -->
-        <section id="view-analyzing" class="hidden min-h-[60vh] flex flex-col justify-center items-center">
+        <section id="view-analyzing" class="hidden min-h-[60vh] flex flex-col justify-center items-center text-center">
             <div class="mb-6 relative">
                 <i class="fa-solid fa-cloud text-7xl text-skyBlue animate-pulse"></i>
                 <i class="fa-solid fa-plane text-2xl text-brandRed absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></i>
@@ -185,11 +184,13 @@
                 <i class="fa-solid fa-circle-check text-7xl drop-shadow-[0_0_20px_rgba(255,77,77,0.3)]"></i>
             </div>
             <h2 id="pre-result-title" class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-5 font-sans">Analysis Complete!</h2>
-            <!-- 문구 줄바꿈 수정 -->
             <p id="pre-result-desc" class="text-gray-500 text-lg md:text-xl mb-12 max-w-md font-sans font-semibold mx-auto leading-relaxed">Your spicy level has been calculated. <br/> Ready to see your status card?</p>
-            <button onclick="viewFinalResult()" id="pre-result-btn" class="btn-hop bg-brandRed text-white w-[90%] md:w-fit md:min-w-[310px] px-8 md:px-14 py-6 md:py-8 rounded-full font-black text-xl md:text-2xl uppercase tracking-[0.15em] shadow-2xl animate-pulse font-sans whitespace-nowrap mx-auto">
-                Check your result!
-            </button>
+            <!-- 정렬 수정: 부모 컨테이너 추가 -->
+            <div class="w-full flex justify-center">
+                <button onclick="viewFinalResult()" id="pre-result-btn" class="btn-hop bg-brandRed text-white w-[90%] md:w-fit md:min-w-[310px] px-8 md:px-14 py-6 md:py-8 rounded-full font-black text-xl md:text-2xl uppercase tracking-[0.15em] shadow-2xl animate-pulse font-sans whitespace-nowrap">
+                    Check your result!
+                </button>
+            </div>
         </section>
 
         <!-- SECTION 5: RESULT -->
@@ -205,12 +206,12 @@
                 <span id="result-save-hint" class="text-[9px] font-black text-gray-400 uppercase tracking-widest font-sans">Hold image to save result</span>
             </div>
 
+            <!-- 결과 페이지 버튼 컨테이너: flex-col items-center로 정렬 보장 -->
             <div class="flex flex-col items-center gap-4 w-full max-w-sm font-sans">
-                <!-- ID/태깅 명칭 보존 -->
-                <button id="download-btn" onclick="downloadResult()" class="btn-hop w-full bg-gray-900 text-white py-6 md:py-5 rounded-2xl font-black text-lg md:text-sm uppercase tracking-widest shadow-xl whitespace-nowrap">
+                <button id="download-btn" onclick="downloadResult()" class="btn-hop w-[90%] md:w-full bg-gray-900 text-white py-6 md:py-5 rounded-2xl font-black text-lg md:text-sm uppercase tracking-widest shadow-xl whitespace-nowrap">
                     <i class="fa-solid fa-download mr-2 text-deepSky"></i> <span data-t="res_download">Save My Card</span>
                 </button>
-                <button onclick="handleSmartShare()" class="btn-hop w-full bg-white border border-gray-100 text-gray-800 py-6 md:py-5 rounded-2xl font-black text-base md:text-xs uppercase tracking-widest shadow-sm whitespace-nowrap">
+                <button onclick="handleSmartShare()" class="btn-hop w-[90%] md:w-full bg-white border border-gray-100 text-gray-800 py-6 md:py-5 rounded-2xl font-black text-base md:text-xs uppercase tracking-widest shadow-sm whitespace-nowrap">
                     <i class="fa-solid fa-share-nodes text-brandRed mr-2"></i> <span data-t="res_share">Share My Result</span>
                 </button>
                 <button onclick="retakeQuiz()" class="mt-8 text-gray-400 font-black uppercase tracking-[0.2em] text-[10px] transition-colors whitespace-nowrap hover:text-gray-800">
@@ -221,12 +222,12 @@
 
     </main>
 
-    <footer class="py-12 border-t border-gray-100 text-center">
+    <footer class="py-12 border-t border-gray-100 text-center font-sans">
         <div class="flex items-center gap-2 justify-center mb-4 text-gray-800">
             <i class="fa-solid fa-plane-up text-skyBlue"></i>
             <span class="text-base font-black italic uppercase leading-none">Insight Out</span>
         </div>
-        <p id="copyright-text" class="text-gray-400 text-[9px] font-bold tracking-[0.4em] uppercase font-sans">
+        <p id="copyright-text" class="text-gray-400 text-[9px] font-bold tracking-[0.4em] uppercase">
             &copy; 2026 INSIGHT OUT | SEOUL SKY TRAVEL EDITION
         </p>
     </footer>
