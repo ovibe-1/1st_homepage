@@ -142,7 +142,7 @@
                 and get a 0% fail-rate <span class="whitespace-nowrap font-bold text-gray-700">K-Food recommendation.</span>
             </p>
             <div class="w-full flex justify-center px-4">
-                <!-- 메인 버튼: 모바일 글자 사이즈 text-lg로 최적화 -->
+                <!-- 버튼 글자 크기 모바일 text-lg로 최적화 -->
                 <button onclick="startQuiz()" class="btn-hop group bg-white text-gray-900 w-full max-w-[340px] md:w-fit md:min-w-[400px] px-8 md:px-16 py-6 md:py-8 rounded-full font-black text-lg md:text-2xl uppercase tracking-[0.1em] shadow-xl border border-gray-100 hover:bg-brandRed hover:text-white transition-all font-sans whitespace-nowrap">
                     <span data-t="hero_btn">Start The Test</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                 </button>
@@ -186,7 +186,7 @@
             <h2 id="pre-result-title" class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-5 font-sans">Analysis Complete!</h2>
             <p id="pre-result-desc" class="text-gray-500 text-lg md:text-xl mb-12 max-w-md font-sans font-semibold mx-auto leading-relaxed text-center">Your spicy level has been calculated. <br/> Ready to see your status card?</p>
             <div class="w-full flex justify-center px-4">
-                <!-- 결과 확인 버튼: 모바일 글자 사이즈 text-lg로 줄여서 치우침 방지 -->
+                <!-- 결과 확인 버튼: 모바일 글자 크기 text-lg로 축소하여 정렬 보장 -->
                 <button onclick="viewFinalResult()" id="pre-result-btn" class="btn-hop bg-brandRed text-white w-full max-w-[340px] md:w-fit md:min-w-[400px] px-8 md:px-16 py-6 md:py-8 rounded-full font-black text-lg md:text-2xl uppercase tracking-[0.15em] shadow-2xl animate-pulse font-sans whitespace-nowrap">
                     Check your result!
                 </button>
@@ -221,12 +221,12 @@
 
     </main>
 
-    <footer class="py-12 border-t border-gray-100 text-center">
+    <footer class="py-12 border-t border-gray-100 text-center font-sans">
         <div class="flex items-center gap-2 justify-center mb-4 text-gray-800">
             <i class="fa-solid fa-plane-up text-skyBlue"></i>
             <span class="text-base font-black italic uppercase leading-none">Insight Out</span>
         </div>
-        <p id="copyright-text" class="text-gray-400 text-[9px] font-bold tracking-[0.4em] uppercase font-sans">
+        <p id="copyright-text" class="text-gray-400 text-[9px] font-bold tracking-[0.4em] uppercase">
             &copy; 2026 INSIGHT OUT | SEOUL SKY TRAVEL EDITION
         </p>
     </footer>
@@ -234,7 +234,7 @@
     <script>
         let currentLang = 'en';
 
-        // 텍스트 데이터 (인도네시아어 정제 및 fried chicken 영어 유지)
+        // 인도네시아어 데이터 정밀 정제 (fried chicken 영문 유지 포함)
         const CONTENT = {
             en: {
                 lang_label: "Language",
@@ -280,7 +280,7 @@
                 res_hint: "Tahan gambar untuk menyimpan kartu",
                 toast_copy: "🔗 Tautan Disalin!",
                 questions: [
-                    { image: "images/Q1.jpg", question: "Kamu di pesawat ke Seoul, bibimbap disajikan. Orang di sebelahmu menuang 모든 gochujang. Apa reaksimu?", options: [{ id: 'A', text: "Tuang sedikit saja... mungkin setengah", value: 0 }, { id: 'B', text: "Gak mau kalah—tuang semuanya! 🔥", value: 1 }] },
+                    { image: "images/Q1.jpg", question: "Kamu di pesawat ke Seoul, bibimbap disajikan. Orang di sebelahmu menuang semua gochujang. Apa reaksimu?", options: [{ id: 'A', text: "Tuang sedikit saja... mungkin setengah", value: 0 }, { id: 'B', text: "Gak mau kalah—tuang semuanya! 🔥", value: 1 }] },
                     { image: "images/Q2.jpg", question: "Lagi scroll sosmed sambil nunggu kereta. Lihat video orang asing kepedasan makan jjamppong?", options: [{ id: 'A', text: "“Kenapa sih mereka menyiksa diri sendiri?”", value: 0 }, { id: 'B', text: "“Wah, aku juga mau coba reaksi kayak gitu juga!”", value: 1 }] },
                     { image: "images/Q3.jpg", question: "Aroma pedas manis tteokbokki kecium di jalanan Seoul. Apa yang kamu harapkan di gigitan pertama?", options: [{ id: 'A', text: "“Aduh...” langsung cari air putih", value: 0 }, { id: 'B', text: "Pura-pura kuat dan lanjut makan 😎", value: 1 }] },
                     { image: "images/Q4.jpg", question: "Ada menu dengan 3 ikon cabai 🌶️🌶️🌶️. Apa yang akan kamu pilih?", options: [{ id: 'A', text: "“Cari aman... yang level 1 cabai saja”", value: 0 }, { id: 'B', text: "“Sudah sampai sini—coba yang paling pedas!” 🔥", value: 1 }] },
