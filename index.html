@@ -65,7 +65,7 @@
         }
 
         .window-frame {
-            border: 8px solid #FFFFFF;
+            border: 10px solid #FFFFFF;
             border-radius: 40px;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.05);
             overflow: hidden;
@@ -74,9 +74,9 @@
 
         .glass-card {
             background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
         }
 
         .btn-hop { transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -97,7 +97,7 @@
         }
     </style>
 </head>
-<body class="selection:bg-skyBlue/30 relative">
+<body class="selection:bg-skyBlue/30 relative text-gray-800">
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZ4NQHPZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <div class="bg-pattern"></div>
@@ -110,7 +110,7 @@
             <div class="w-7 h-7 bg-brandRed rounded-lg flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform shadow-md">
                 <i class="fa-solid fa-plane text-white text-xs"></i>
             </div>
-            <span class="text-base md:text-xl font-black italic tracking-tighter uppercase text-gray-800 leading-none">Insight Out</span>
+            <span class="text-base md:text-xl font-black italic tracking-tighter uppercase leading-none">Insight Out</span>
         </div>
         
         <div class="flex items-center gap-2 md:gap-4">
@@ -125,13 +125,14 @@
         </div>
     </header>
 
-    <main class="relative z-10 pt-14">
+    <main class="relative z-10 pt-14 text-center">
         
         <!-- SECTION 1: HERO -->
-        <section id="view-hero" class="fade-in min-h-[85vh] flex flex-col justify-center items-center px-6 text-center">
+        <section id="view-hero" class="fade-in min-h-[85vh] flex flex-col justify-center items-center px-6">
             <div id="hero-badge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-deepSky text-[9px] md:text-[10px] font-black uppercase tracking-[0.15em] mb-4 shadow-sm border border-skyBlue/20">
                 <i class="fa-solid fa-location-dot"></i> In-Flight to Seoul
             </div>
+            <!-- 색상 검정색(text-gray-900) 복구 -->
             <h1 id="hero-title" class="text-5xl md:text-8xl font-black text-gray-900 leading-[1.05] tracking-tighter mb-6 font-sans italic uppercase">
                 What's your <br/>
                 <span class="text-brandRed drop-shadow-sm">K-Spicy level?</span>
@@ -139,9 +140,10 @@
             <p id="hero-desc" class="text-gray-600 text-base md:text-xl max-w-2xl mx-auto mb-10 font-semibold leading-relaxed font-sans">
                 A trip to Seoul in just 1 minute! <br/>
                 Find your K-Spicy level <br class="block md:hidden"/> 
-                and get a 0% fail-rate <span class="whitespace-nowrap">K-Food recommendation.</span>
+                and get a 0% fail-rate <span class="whitespace-nowrap font-bold text-gray-700">K-Food recommendation.</span>
             </p>
-            <button onclick="startQuiz()" class="btn-hop group bg-white text-gray-900 w-fit min-w-[310px] px-14 py-8 md:py-7 rounded-full font-black text-2xl md:text-xl uppercase tracking-[0.1em] flex items-center justify-center gap-4 shadow-xl border border-gray-100 hover:bg-brandRed hover:text-white transition-all font-sans whitespace-nowrap">
+            <!-- 시작 버튼: 모바일(w-90%) / 웹(md:w-fit) 반응형 크기 최적화 -->
+            <button onclick="startQuiz()" class="btn-hop group bg-white text-gray-900 w-[90%] md:w-fit md:min-w-[310px] px-8 md:px-14 py-6 md:py-8 rounded-full font-black text-xl md:text-2xl uppercase tracking-[0.1em] flex items-center justify-center gap-4 shadow-xl border border-gray-100 hover:bg-brandRed hover:text-white transition-all font-sans whitespace-nowrap mx-auto">
                 <span data-t="hero_btn">Start The Test</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
             </button>
         </section>
@@ -149,19 +151,20 @@
         <!-- SECTION 2: QUIZ -->
         <section id="view-quiz" class="hidden fade-in min-h-[80vh] py-8 px-5 flex flex-col items-center justify-center">
             <div class="w-full max-w-xl glass-card rounded-[40px] p-6 md:p-10">
-                <div class="flex justify-between items-center mb-5">
+                <div class="flex justify-between items-center mb-5 text-left">
                     <span id="quiz-progress-text" class="text-[10px] font-black uppercase tracking-widest text-deepSky font-sans">Question 1 of 6</span>
-                    <!-- Category 제거 완료 -->
                 </div>
                 <div class="mb-6 h-1.5 w-full bg-white/50 rounded-full overflow-hidden shadow-inner">
                     <div id="quiz-progress-bar" class="h-full w-0 transition-all duration-500"></div>
                 </div>
                 
-                <div id="quiz-content" class="fade-in">
+                <div id="quiz-content" class="fade-in text-left">
                     <div class="window-frame mb-6">
-                        <img id="quiz-image" src="" alt="Quiz" class="w-full h-44 md:h-60 object-cover bg-gray-100" />
+                        <img id="quiz-image" src="" alt="Quiz" class="w-full h-48 md:h-64 object-cover bg-gray-100" />
                     </div>
+                    <!-- 질문 텍스트 크기: 한 단계 축소 (text-lg md:text-xl) -->
                     <h3 id="quiz-question" class="text-lg md:text-xl font-black text-gray-800 mb-8 leading-snug tracking-tight font-sans">Question</h3>
+                    <!-- 선택지 버튼 확대 (p-6, text-base) -->
                     <div class="grid gap-3.5" id="quiz-options"></div>
                 </div>
             </div>
@@ -173,7 +176,7 @@
                 <i class="fa-solid fa-cloud text-7xl text-skyBlue animate-pulse"></i>
                 <i class="fa-solid fa-plane text-2xl text-brandRed absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></i>
             </div>
-            <h2 id="analyzing-text" class="text-xl font-black uppercase tracking-widest text-gray-700 font-sans">Analyzing your spicy soul...</h2>
+            <h2 id="analyzing-text" class="text-xl font-black uppercase tracking-widest text-gray-700 font-sans leading-relaxed">Analyzing your spicy soul...</h2>
         </section>
 
         <!-- SECTION 4: PRE-RESULT -->
@@ -182,8 +185,9 @@
                 <i class="fa-solid fa-circle-check text-7xl drop-shadow-[0_0_20px_rgba(255,77,77,0.3)]"></i>
             </div>
             <h2 id="pre-result-title" class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-5 font-sans">Analysis Complete!</h2>
+            <!-- 문구 줄바꿈 수정 -->
             <p id="pre-result-desc" class="text-gray-500 text-lg md:text-xl mb-12 max-w-md font-sans font-semibold mx-auto leading-relaxed">Your spicy level has been calculated. <br/> Ready to see your status card?</p>
-            <button onclick="viewFinalResult()" id="pre-result-btn" class="btn-hop bg-brandRed text-white w-fit min-w-[310px] px-14 py-8 rounded-full font-black text-2xl uppercase tracking-[0.15em] shadow-2xl animate-pulse font-sans whitespace-nowrap">
+            <button onclick="viewFinalResult()" id="pre-result-btn" class="btn-hop bg-brandRed text-white w-[90%] md:w-fit md:min-w-[310px] px-8 md:px-14 py-6 md:py-8 rounded-full font-black text-xl md:text-2xl uppercase tracking-[0.15em] shadow-2xl animate-pulse font-sans whitespace-nowrap mx-auto">
                 Check your result!
             </button>
         </section>
@@ -202,13 +206,14 @@
             </div>
 
             <div class="flex flex-col items-center gap-4 w-full max-w-sm font-sans">
+                <!-- ID/태깅 명칭 보존 -->
                 <button id="download-btn" onclick="downloadResult()" class="btn-hop w-full bg-gray-900 text-white py-6 md:py-5 rounded-2xl font-black text-lg md:text-sm uppercase tracking-widest shadow-xl whitespace-nowrap">
-                    <i class="fa-solid fa-download mr-2"></i> <span data-t="res_download">Save My Card</span>
+                    <i class="fa-solid fa-download mr-2 text-deepSky"></i> <span data-t="res_download">Save My Card</span>
                 </button>
                 <button onclick="handleSmartShare()" class="btn-hop w-full bg-white border border-gray-100 text-gray-800 py-6 md:py-5 rounded-2xl font-black text-base md:text-xs uppercase tracking-widest shadow-sm whitespace-nowrap">
                     <i class="fa-solid fa-share-nodes text-brandRed mr-2"></i> <span data-t="res_share">Share My Result</span>
                 </button>
-                <button onclick="retakeQuiz()" class="mt-8 text-gray-400 font-black uppercase tracking-[0.2em] text-[10px] transition-colors whitespace-nowrap">
+                <button onclick="retakeQuiz()" class="mt-8 text-gray-400 font-black uppercase tracking-[0.2em] text-[10px] transition-colors whitespace-nowrap hover:text-gray-800">
                     <i class="fa-solid fa-rotate-left mr-1"></i> <span data-t="res_retake">Retake Test</span>
                 </button>
             </div>
@@ -229,6 +234,7 @@
     <script>
         let currentLang = 'en';
 
+        // 텍스트 설정 (인도네시아어 완벽 현지화 및 Q6 수정 반영)
         const CONTENT = {
             en: {
                 lang_label: "Language",
@@ -248,20 +254,20 @@
                 res_hint: "Hold image to save result card",
                 toast_copy: "🔗 Link Copied!",
                 questions: [
-                    { category: "✈️ In-flight to Seoul", image: "images/Q1.jpg", question: "You’re on a plane to Seoul, and bibimbap is served. The person next to you just dumped the entire gochujang in. What do you do?", options: [{ id: 'A', text: "Add just a little… maybe half", value: 0 }, { id: 'B', text: "No way I’m losing—dump it all in! 🔥", value: 1 }] },
-                    { category: "🚆 Waiting for the train", image: "images/Q2.jpg", question: "You’re scrolling through social media while waiting. You see a foreigner turning bright red while eating super spicy jjamppong?", options: [{ id: 'A', text: "“Why would anyone do that to themselves?”", value: 0 }, { id: 'B', text: "“I wanna try that reaction too!”", value: 1 }] },
-                    { category: "🌆 First bite in Seoul", image: "images/Q3.jpg", question: "The sweet and spicy smell of tteokbokki hits you on the street. What are you expecting from the first bite?", options: [{ id: 'A', text: "“I’m done…” reaches for water immediately", value: 0 }, { id: 'B', text: "Pretend you’re fine and go for another bite 😎", value: 1 }] },
-                    { category: "🍽️ At a restaurant", image: "images/Q4.jpg", question: "You spot a dish on the menu with 3 chili icons 🌶️🌶️🌶️. What’s your reaction?", options: [{ id: 'A', text: "“Let’s play it safe… maybe 1 chili level”", value: 0 }, { id: 'B', text: "“I came all this way—let’s try the signature spicy one!” 🔥", value: 1 }] },
-                    { category: "🍦 After the meal", image: "images/Q5.jpg", question: "Your mouth is on fire. What’s the first thing you do?", options: [{ id: 'A', text: "Grab something sweet like ice cream ASAP", value: 0 }, { id: 'B', text: "Don’t eat anything—just enjoy the spicy aftertaste", value: 1 }] },
-                    { category: "📺 Late-night cravings", image: "images/Q6.jpg", question: "You’re watching K-dramas and suddenly get hungry at night. What do you choose?", options: [{ id: 'A', text: "“Crispy and simple is best” → Fried chicken", value: 0 }, { id: 'B', text: "“Late-night food should hit hard🔥” <br/> → fire noodles", value: 1 }] }
+                    { image: "images/Q1.jpg", question: "You’re on a plane to Seoul, and bibimbap is served. The person next to you just dumped the entire gochujang in. What do you do?", options: [{ id: 'A', text: "Add just a little… maybe half", value: 0 }, { id: 'B', text: "No way I’m losing—dump it all in! 🔥", value: 1 }] },
+                    { image: "images/Q2.jpg", question: "You’re scrolling through social media while waiting for the train. You see a foreigner turning bright red while eating super spicy jjamppong?", options: [{ id: 'A', text: "“Why would anyone do that to themselves?”", value: 0 }, { id: 'B', text: "“I wanna try that reaction too!”", value: 1 }] },
+                    { image: "images/Q3.jpg", question: "The sweet and spicy smell of tteokbokki hits you on the street. What are you expecting from the first bite?", options: [{ id: 'A', text: "“I’m done…” reaches for water immediately", value: 0 }, { id: 'B', text: "Pretend you’re fine and go for another bite 😎", value: 1 }] },
+                    { image: "images/Q4.jpg", question: "You spot a dish on the menu with 3 chili icons 🌶️🌶️🌶️. What’s your reaction?", options: [{ id: 'A', text: "“Let’s play it safe… maybe 1 chili level”", value: 0 }, { id: 'B', text: "“I came all this way—let’s try the signature spicy one!” 🔥", value: 1 }] },
+                    { image: "images/Q5.jpg", question: "Your mouth is on fire. What’s the first thing you do?", options: [{ id: 'A', text: "Grab something sweet like ice cream ASAP", value: 0 }, { id: 'B', text: "Don’t eat anything—just enjoy the spicy aftertaste", value: 1 }] },
+                    { image: "images/Q6.jpg", question: "Late-night cravings strike in Seoul. What's your go-to delivery menu?", options: [{ id: 'A', text: "“Crispy and simple is best” → fried chicken", value: 0 }, { id: 'B', text: "“Late-night food should hit hard🔥” <br/> → fire noodles", value: 1 }] }
                 ]
             },
             id: {
                 lang_label: "Bahasa",
                 nav_btn: "Coba Sekarang",
-                hero_badge: "<i class='fa-solid fa-location-dot'></i> Dalam Penerbangan ke Seoul",
+                hero_badge: "<i class='fa-solid fa-location-dot'></i> Penerbangan ke Seoul",
                 hero_title: "Apa level <br/><span class='text-brandRed drop-shadow-sm'>K-Spicy kamu?</span>",
-                hero_desc: "Hanya 1 menit perjalanan ke Seoul! <br/> Temukan level K-Spicy kamu <br class='block md:hidden'/> dan dapatkan rekomendasi <span class='whitespace-nowrap'>K-Food yang pas.</span>",
+                hero_desc: "Jelajahi Seoul hanya dalam 1 menit! <br/> Temukan level K-Spicy kamu <br class='block md:hidden'/> dan dapatkan rekomendasi <span class='whitespace-nowrap font-bold text-gray-800'>makanan Korea yang pas.</span>",
                 hero_btn: "Mulai Tes",
                 quiz_progress: "Pertanyaan {n} dari {total}",
                 analyzing: "Menganalisis jiwa pedasmu...",
@@ -274,12 +280,12 @@
                 res_hint: "Tahan gambar untuk menyimpan kartu",
                 toast_copy: "🔗 Tautan Disalin!",
                 questions: [
-                    { category: "✈️ Di Pesawat ke Seoul", image: "images/Q1.jpg", question: "Kamu di pesawat ke Seoul, bibimbap disajikan. Orang sebelahmu nuang 모든 gochujang. Kamu gimana?", options: [{ id: 'A', text: "Dikit aja... mungkin setengah", value: 0 }, { id: 'B', text: "Gak mau kalah—tuang 모든! 🔥", value: 1 }] },
-                    { category: "🚆 Menunggu Kereta", image: "images/Q2.jpg", question: "Lagi scroll sosmed sambil nunggu kereta. Lihat video orang luar kepedasan makan jjamppong?", options: [{ id: 'A', text: "“Ngapain sih nyiksa diri?”", value: 0 }, { id: 'B', text: "“Mau coba reaksi kayak gitu juga!”", value: 1 }] },
-                    { category: "🌆 Suapan Pertama", image: "images/Q3.jpg", question: "Bau manis pedas tteokbokki kecium di jalan. Apa ekspektasimu saat gigitan pertama?", options: [{ id: 'A', text: "“Gak kuat...” langsung cari air", value: 0 }, { id: 'B', text: "Pura-pura kuat dan lanjut makan 😎", value: 1 }] },
-                    { category: "🍽️ Di Restoran", image: "images/Q4.jpg", question: "Ada menu dengan 3 ikon cabai 🌶️🌶️🌶️. Reaksimu?", options: [{ id: 'A', text: "“Cari aman... level 1 cabai aja”", value: 0 }, { id: 'B', text: "“Udah jauh-jauh kesini—coba yang paling pedas!” 🔥", value: 1 }] },
-                    { category: "🍦 After the meal", image: "images/Q5.jpg", question: "Mulutmu berasa terbakar. Apa hal pertama yang kamu lakukan?", options: [{ id: 'A', text: "Cari yang manis 같은 es krim secepatnya", value: 0 }, { id: 'B', text: "Gak usah makan apa-apa—nikmati saja rasa pedasnya", value: 1 }] },
-                    { category: "📺 Ngidam Larut Malam", image: "images/Q6.jpg", question: "Nonton K-drama terus lapar tengah malam. Apa menu pilihanmu?", options: [{ id: 'A', text: "“Crispy dan simpel paling benar” → Ayam goreng", value: 0 }, { id: 'B', text: "“Makan malam harus nendang🔥” <br/> → fire noodles", value: 1 }] }
+                    { image: "images/Q1.jpg", question: "Kamu di pesawat ke Seoul, bibimbap disajikan. Orang di sebelahmu menuang semua gochujang. Apa reaksimu?", options: [{ id: 'A', text: "Tuang sedikit saja... mungkin setengah", value: 0 }, { id: 'B', text: "Gak mau kalah—tuang semuanya! 🔥", value: 1 }] },
+                    { image: "images/Q2.jpg", question: "Lagi scroll sosmed sambil nunggu kereta. Lihat video orang asing kepedasan makan jjamppong?", options: [{ id: 'A', text: "“Kenapa sih mereka menyiksa diri sendiri?”", value: 0 }, { id: 'B', text: "“Wah, aku juga mau coba reaksi kayak gitu juga!”", value: 1 }] },
+                    { image: "images/Q3.jpg", question: "Aroma pedas manis tteokbokki kecium di jalanan Seoul. Apa yang kamu harapkan di gigitan pertama?", options: [{ id: 'A', text: "“Aduh...” langsung cari air putih", value: 0 }, { id: 'B', text: "Pura-pura kuat dan lanjut makan 😎", value: 1 }] },
+                    { image: "images/Q4.jpg", question: "Ada menu dengan 3 ikon cabai 🌶️🌶️🌶️. Apa yang akan kamu pilih?", options: [{ id: 'A', text: "“Cari aman... yang level 1 cabai saja”", value: 0 }, { id: 'B', text: "“Sudah sampai sini—coba yang paling pedas!” 🔥", value: 1 }] },
+                    { image: "images/Q5.jpg", question: "Mulutmu terasa terbakar. Apa hal pertama yang kamu lakukan?", options: [{ id: 'A', text: "Cari sesuatu yang manis seperti es krim secepatnya", value: 0 }, { id: 'B', text: "Biarin aja—nikmati sisa rasa pedasnya", value: 1 }] },
+                    { image: "images/Q6.jpg", question: "Nonton K-drama terus lapar tengah malam. Apa menu pilihanmu?", options: [{ id: 'A', text: "“Yang krispi dan simpel paling pas” → fried chicken", value: 0 }, { id: 'B', text: "“Makan malam harus nendang🔥” <br/> → fire noodles", value: 1 }] }
                 ]
             }
         };
@@ -316,7 +322,7 @@
             p.style.top = `${e.clientY}px`;
             cursorContainer.appendChild(p);
             requestAnimationFrame(() => {
-                p.style.transform = `translate(${Math.random() * 80 - 40}px, 80px) scale(0.3) rotate(${Math.random() * 360}deg)`;
+                p.style.transform = `translate(${Math.random() * 60 - 30}px, 60px) scale(0.3) rotate(${Math.random() * 360}deg)`;
                 p.style.opacity = '0';
             });
             setTimeout(() => p.remove(), 700);
@@ -325,12 +331,15 @@
         function setLanguage(lang) {
             currentLang = lang;
             const c = CONTENT[lang];
+            
             document.getElementById('lang-id').classList.toggle('lang-active', lang === 'id');
             document.getElementById('lang-en').classList.toggle('lang-active', lang === 'en');
+            
             document.querySelectorAll('[data-t]').forEach(el => {
                 const key = el.getAttribute('data-t');
                 if (c[key]) el.innerHTML = c[key];
             });
+
             document.getElementById('lang-label').innerText = c.lang_label;
             document.getElementById('hero-badge').innerHTML = c.hero_badge;
             document.getElementById('hero-title').innerHTML = c.hero_title;
@@ -340,6 +349,7 @@
             document.getElementById('pre-result-desc').innerHTML = c.pre_result_desc;
             document.getElementById('pre-result-btn').innerText = c.pre_result_btn;
             document.getElementById('result-save-hint').innerText = c.res_hint;
+
             if (!document.getElementById('view-quiz').classList.contains('hidden')) renderQuestion();
         }
 
@@ -356,6 +366,7 @@
             window.scrollTo(0,0);
         }
 
+        // GA/GTM 연동 유지
         function startQuiz() {
             window.dataLayer.push({ 'event': 'quiz_start' });
             currentQuestionIndex = 0; score = 0;
@@ -374,7 +385,7 @@
             optionsContainer.innerHTML = '';
             q.options.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = `btn-hop w-full text-left p-6 md:p-8 rounded-[1.8rem] bg-white/60 border-2 border-white/80 font-bold text-gray-800 hover:bg-white shadow-sm font-sans`;
+                btn.className = `btn-hop w-full text-left p-6 md:p-8 rounded-[1.8rem] bg-white/60 border-2 border-white/80 font-bold text-gray-800 hover:bg-white shadow-sm font-sans transition-all active:scale-95`;
                 btn.innerHTML = `<span class="text-base md:text-lg leading-tight font-sans">${opt.text}</span>`;
                 btn.onclick = () => {
                     window.dataLayer.push({ 'event': 'question_answered', 'question_number': currentQuestionIndex + 1, 'selected_option': opt.id });
@@ -397,6 +408,7 @@
             setTimeout(() => { switchView('pre-result'); }, 2000);
         }
 
+        // 전환 측정 SubmitForm 유지
         function viewFinalResult() {
             window.dataLayer.push({ 'event': 'SubmitForm', 'result_level': finalResult.level, 'conversion_type': 'quiz_result_view' });
             switchView('result');
