@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <!-- Google Tag Manager -->
+    <!-- Google Tag Manager (절대 삭제 금지) -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -18,7 +18,7 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -26,9 +26,9 @@
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        brandRed: '#FF003C',
-                        brandDark: '#050505',
-                        brandZinc: '#0a0a0a',
+                        brandRed: '#FF4D4D',
+                        skyBlue: '#A5D8FF',
+                        deepSky: '#74C0FC',
                     }
                 }
             }
@@ -36,146 +36,198 @@
     </script>
 
     <style>
-        body { background-color: #050505; color: #ffffff; overflow-x: hidden; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
-        .noise-overlay { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.03; background-image: url('https://framerusercontent.com/images/rR6HYXBrMmX4c9UT4c9UT.png'); background-repeat: repeat; mix-blend-mode: overlay; }
+        body { 
+            background: linear-gradient(180deg, #A5D8FF 0%, #FFFFFF 100%); 
+            color: #2D3436; 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased; 
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        .bg-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.4;
+            pointer-events: none;
+            background-image: url('https://www.transparenttextures.com/patterns/clouds.png');
+        }
+
         .fade-in { animation: fadeIn 0.6s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .pulse-slow { animation: pulseSlow 3s infinite; }
-        @keyframes pulseSlow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } }
-        .particle { position: fixed; pointer-events: none; z-index: 9999; transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1); }
-        #quiz-image { background-color: rgba(255, 255, 255, 0.03); min-height: 180px; }
-        #custom-toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: #ffffff; color: #000000; padding: 1rem 2rem; border-radius: 9999px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; z-index: 1000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid #FF003C; }
-        
-        .lang-toggle-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
-        .lang-active { background-color: #FF003C; color: white; box-shadow: 0 0 10px rgba(255,0,60,0.4); }
+
+        /* Chili Particle Style */
+        .particle { 
+            position: fixed; 
+            pointer-events: none; 
+            z-index: 9999; 
+            transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1); 
+        }
+
+        /* Airplane Window Frame */
+        .window-frame {
+            border: 12px solid #FFFFFF;
+            border-radius: 60px;
+            box-shadow: 
+                inset 0 0 15px rgba(0,0,0,0.1),
+                0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            background: #f8fbff;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-hop { transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-hop:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn-hop:active { transform: scale(0.96); }
+
+        .lang-active { background-color: #FF4D4D; color: white; box-shadow: 0 4px 10px rgba(255,77,77,0.3); }
+
+        #custom-toast { 
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); 
+            background: #2D3436; color: white; padding: 0.8rem 1.5rem; 
+            border-radius: 99px; font-weight: 700; z-index: 1000; display: none; 
+            font-size: 0.8rem; letter-spacing: 0.05em;
+        }
+
+        #quiz-progress-bar {
+            background: linear-gradient(90deg, #74C0FC 0%, #FF4D4D 100%);
+        }
     </style>
 </head>
-<body class="selection:bg-brandRed/30 text-white relative">
+<body class="selection:bg-skyBlue/30 relative">
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZ4NQHPZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
-    <div class="noise-overlay"></div>
+    <div class="bg-pattern"></div>
     <div id="cursor-container"></div>
     <div id="custom-toast">Link Copied!</div>
 
     <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 py-4 flex justify-between items-center border-b border-white/5 bg-black/60 backdrop-blur-xl">
+    <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 py-4 flex justify-between items-center bg-white/40 backdrop-blur-md border-b border-white/20">
         <div class="flex items-center gap-2 cursor-pointer group" onclick="location.reload()">
-            <div class="w-8 h-8 md:w-9 md:h-9 bg-brandRed rounded-lg flex items-center justify-center rotate-12 group-hover:rotate-0 transition-transform duration-500 shadow-[0_0_15px_rgba(255,0,60,0.4)]">
-                <i class="fa-solid fa-fire text-white text-sm md:text-base"></i>
+            <div class="w-8 h-8 md:w-9 md:h-9 bg-brandRed rounded-xl flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-lg">
+                <i class="fa-solid fa-plane text-white text-sm"></i>
             </div>
-            <span class="text-lg md:text-xl font-black italic tracking-tighter uppercase leading-none text-white">Insight Out</span>
+            <span class="text-lg md:text-xl font-black italic tracking-tighter uppercase text-gray-800">Insight Out</span>
         </div>
         
-        <div class="flex items-center gap-3 md:gap-5">
+        <div class="flex items-center gap-2 md:gap-4">
             <div class="flex items-center gap-2">
-                <span id="lang-label" class="hidden sm:inline text-[9px] font-black uppercase tracking-widest text-white/40">Language</span>
-                <div class="bg-white/5 p-1 rounded-full border border-white/10 flex items-center gap-1">
-                    <button id="lang-id" onclick="setLanguage('id')" class="lang-toggle-btn px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter">ID</button>
-                    <button id="lang-en" onclick="setLanguage('en')" class="lang-toggle-btn px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter lang-active">EN</button>
+                <span id="lang-label" class="hidden sm:inline text-[9px] font-black uppercase tracking-widest text-gray-400">Language</span>
+                <div class="bg-white/60 p-1 rounded-full border border-white/40 flex items-center gap-1 shadow-sm">
+                    <button id="lang-id" onclick="setLanguage('id')" class="lang-toggle-btn px-3 py-1.5 rounded-full text-[10px] font-bold uppercase">ID</button>
+                    <button id="lang-en" onclick="setLanguage('en')" class="lang-toggle-btn px-3 py-1.5 rounded-full text-[10px] font-bold uppercase lang-active">EN</button>
                 </div>
             </div>
-            <button onclick="startQuiz()" data-t="nav_btn" class="bg-brandRed text-white px-4 md:px-7 py-2.5 rounded-full text-[10px] md:text-[11px] font-black uppercase tracking-widest hover:bg-red-700 transition-all hover:scale-105 active:scale-95 shadow-lg font-sans">Try Now</button>
+            <button onclick="startQuiz()" data-t="nav_btn" class="bg-gray-900 text-white px-4 md:px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-colors shadow-md">Try Now</button>
         </div>
     </header>
 
     <main class="relative z-10 pt-20 pb-20">
         
         <!-- SECTION 1: HERO -->
-        <section id="view-hero" class="fade-in min-h-[90vh] flex flex-col justify-center items-center px-6 text-center">
-            <div class="absolute inset-0 -z-10 bg-black"></div>
-            
-            <div data-t="hero_badge" class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-brandRed/30 bg-brandRed/10 text-[10px] font-black uppercase tracking-[0.4em] text-brandRed mb-8 font-sans">1-Min Spicy Soul Audit</div>
-            <h1 id="hero-title" class="text-6xl md:text-9xl font-black italic uppercase leading-[0.85] tracking-tighter mb-10 font-sans">
+        <section id="view-hero" class="fade-in min-h-[85vh] flex flex-col justify-center items-center px-6 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-deepSky text-[10px] font-extrabold uppercase tracking-[0.2em] mb-8 shadow-sm border border-skyBlue/20">
+                <i class="fa-solid fa-location-dot"></i> In-Flight to Seoul
+            </div>
+            <h1 id="hero-title" class="text-5xl md:text-8xl font-black text-gray-900 leading-[1.1] tracking-tight mb-8 font-sans">
                 What's your <br/>
-                <span class="text-brandRed drop-shadow-[0_0_30px_rgba(255,0,60,0.5)] font-sans">K-spicy level?</span>
+                <span class="text-brandRed">K-Spicy level?</span>
             </h1>
-            <p id="hero-desc" class="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto mb-14 font-medium leading-relaxed font-sans">
+            <p id="hero-desc" class="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium leading-relaxed font-sans">
                 A trip to Seoul in just 1 minute! <br/>
                 Find your K-Spicy level and get a 0% fail-rate K-Food recommendation.
             </p>
-            <button onclick="startQuiz()" class="group bg-white text-black px-8 py-5 md:px-14 md:py-6 rounded-full font-black text-sm md:text-[13px] uppercase tracking-[0.25em] hover:bg-brandRed hover:text-white transition-all duration-300 flex items-center gap-4 mx-auto shadow-2xl font-sans">
-                <span data-t="hero_btn">Start The Test</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+            <button onclick="startQuiz()" class="btn-hop group bg-white text-gray-900 w-full max-w-[280px] md:w-auto px-10 py-6 md:py-5 rounded-full font-black text-base md:text-sm uppercase tracking-widest flex items-center justify-center gap-4 shadow-xl border border-gray-100 hover:bg-brandRed hover:text-white transition-all font-sans">
+                <span data-t="hero_btn">Start The Test</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
             </button>
         </section>
 
         <!-- SECTION 2: QUIZ -->
-        <section id="view-quiz" class="hidden fade-in min-h-[85vh] py-32 px-6 flex flex-col items-center justify-center bg-black font-sans">
-            <div class="w-full max-w-2xl bg-zinc-900/50 border border-white/5 rounded-[40px] p-8 md:p-16 backdrop-blur-3xl shadow-2xl relative">
-                <div class="flex justify-between items-center mb-16">
-                    <span id="quiz-progress-text" class="text-[10px] font-black uppercase tracking-widest text-brandRed font-sans">Question 1 of 6</span>
+        <section id="view-quiz" class="hidden fade-in min-h-[80vh] py-12 px-6 flex flex-col items-center justify-center">
+            <div class="w-full max-w-xl glass-card rounded-[48px] p-8 md:p-12">
+                <div class="flex justify-between items-center mb-8">
+                    <span id="quiz-progress-text" class="text-[10px] font-black uppercase tracking-widest text-deepSky font-sans">Question 1 of 6</span>
                 </div>
-                <div class="mb-12 h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                    <div id="quiz-progress-bar" class="h-full bg-brandRed w-0 transition-all duration-500"></div>
+                <div class="mb-10 h-2 w-full bg-white/50 rounded-full overflow-hidden shadow-inner">
+                    <div id="quiz-progress-bar" class="h-full w-0 transition-all duration-500"></div>
                 </div>
-                <div id="quiz-content" class="fade-in text-center md:text-left">
-                    <img id="quiz-image" src="" alt="" class="w-full h-48 md:h-72 object-cover rounded-2xl mb-10 shadow-lg border border-white/10 hidden mx-auto" />
-                    <h3 id="quiz-question" class="text-base md:text-xl font-black leading-tight tracking-tight text-white mb-10 drop-shadow-md font-sans">Question</h3>
-                    <div class="grid gap-4" id="quiz-options"></div>
+                
+                <div id="quiz-content" class="fade-in">
+                    <div class="window-frame mb-8">
+                        <img id="quiz-image" src="" alt="" class="w-full h-56 md:h-72 object-cover" />
+                    </div>
+                    <h3 id="quiz-question" class="text-xl md:text-2xl font-black text-gray-800 mb-8 leading-tight drop-shadow-sm font-sans">Question</h3>
+                    <div class="grid gap-3" id="quiz-options"></div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION 3: ANALYZING -->
-        <section id="view-analyzing" class="hidden min-h-[80vh] flex flex-col justify-center items-center">
-            <div class="mb-8 pulse-slow"><i class="fa-solid fa-fire text-6xl text-brandRed"></i></div>
-            <h2 id="analyzing-text" class="text-2xl font-black uppercase tracking-widest font-sans text-white">Calculating Your Spicy Soul...</h2>
+        <section id="view-analyzing" class="hidden min-h-[70vh] flex flex-col justify-center items-center">
+            <div class="mb-8 relative">
+                <i class="fa-solid fa-cloud text-6xl text-skyBlue animate-pulse"></i>
+                <i class="fa-solid fa-plane text-2xl text-brandRed absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></i>
+            </div>
+            <h2 id="analyzing-text" class="text-xl font-black uppercase tracking-widest text-gray-700 font-sans">Analyzing your spicy soul...</h2>
         </section>
 
-        <!-- SECTION 4: PRE-RESULT -->
+        <!-- SECTION 4: PRE-RESULT (Check Result Button Step) -->
         <section id="view-pre-result" class="hidden fade-in min-h-[80vh] flex flex-col justify-center items-center px-6 text-center">
             <div class="mb-12">
-                <i class="fa-solid fa-circle-check text-brandRed text-7xl drop-shadow-[0_0_20px_rgba(255,0,60,0.5)]"></i>
+                <i class="fa-solid fa-circle-check text-brandRed text-7xl drop-shadow-[0_0_20px_rgba(255,77,77,0.4)]"></i>
             </div>
-            <h2 id="pre-result-title" class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-6">Analysis Complete!</h2>
-            <p id="pre-result-desc" class="text-zinc-400 text-lg mb-12 max-w-md font-sans">Your spicy level has been calculated. Are you ready to see your status card?</p>
-            <button onclick="viewFinalResult()" id="pre-result-btn" class="bg-brandRed text-white px-10 py-5 md:px-12 md:py-6 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all duration-300 shadow-[0_20px_50px_rgba(255,0,60,0.3)] animate-pulse font-sans">
+            <h2 id="pre-result-title" class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-6 text-gray-800 font-sans">Analysis Complete!</h2>
+            <p id="pre-result-desc" class="text-gray-500 text-lg mb-12 max-w-md font-sans">Your spicy level has been calculated. Are you ready to see your status card?</p>
+            <button onclick="viewFinalResult()" id="pre-result-btn" class="btn-hop bg-brandRed text-white px-10 py-6 md:px-12 md:py-5 rounded-full font-black text-base uppercase tracking-widest shadow-2xl animate-pulse font-sans">
                 Check your result!
             </button>
         </section>
 
         <!-- SECTION 5: RESULT -->
-        <section id="view-result" class="hidden fade-in py-24 px-6 flex flex-col items-center justify-center min-h-screen bg-brandDark font-sans text-center">
-            <div class="relative group max-w-sm md:max-w-[440px] w-full mb-10">
-                <div id="result-glow" class="absolute -inset-2 rounded-[2.5rem] blur-2xl opacity-40 transition duration-1000 bg-brandRed"></div>
-                <div class="relative bg-brandZinc rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
-                    <img id="result-image" src="" alt="" class="w-full h-auto object-cover select-none">
+        <section id="view-result" class="hidden fade-in py-12 px-6 flex flex-col items-center min-h-screen">
+            <div class="relative max-w-sm w-full mb-10 group">
+                <div id="result-glow" class="absolute -inset-4 rounded-[3rem] blur-3xl opacity-30 bg-skyBlue"></div>
+                <div class="relative bg-white rounded-[2.5rem] overflow-hidden shadow-2xl border-[10px] border-white">
+                    <img id="result-image" src="" alt="" class="w-full h-auto select-none">
                 </div>
             </div>
 
-            <div class="mb-4 inline-flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10">
-                <span id="result-save-hint" class="text-[10px] font-black text-white/50 uppercase tracking-[0.2em] font-sans">Hold image to save result card</span>
+            <div class="mb-6 inline-flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full border border-gray-100 shadow-sm">
+                <span id="result-save-hint" class="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-sans">Hold image to save your result card</span>
             </div>
 
             <div class="flex flex-col items-center gap-4 w-full max-w-sm font-sans">
-                <button id="download-btn" onclick="downloadResult()" class="w-full flex items-center justify-center gap-4 bg-white text-black py-5 md:py-6 rounded-[1.5rem] font-black text-[13px] uppercase tracking-[0.25em] hover:bg-brandRed hover:text-white transition-all shadow-2xl cursor-pointer">
-                    <i class="fa-solid fa-download text-lg"></i> <span data-t="res_download">Download My Card</span>
+                <button onclick="downloadResult()" class="btn-hop w-full bg-gray-900 text-white py-6 md:py-5 rounded-2xl font-black text-base md:text-sm uppercase tracking-widest shadow-xl">
+                    <i class="fa-solid fa-download"></i> <span data-t="res_download">Save My Card</span>
                 </button>
                 
-                <button onclick="handleSmartShare()" class="w-full flex items-center justify-center gap-4 bg-zinc-900 border border-white/10 text-white py-5 rounded-[1.2rem] font-black text-[11px] uppercase tracking-[0.2em] hover:bg-zinc-800 transition-all">
-                    <i class="fa-solid fa-share-nodes text-brandRed"></i> <span data-t="res_share">Share Your Level</span>
+                <button onclick="handleSmartShare()" class="btn-hop w-full bg-white border border-gray-200 text-gray-800 py-6 md:py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-sm">
+                    <i class="fa-solid fa-share-nodes text-brandRed"></i> <span data-t="res_share">Share with Friends</span>
                 </button>
 
-                <button onclick="copyLinkAction()" class="flex items-center gap-3 text-zinc-600 hover:text-white font-black uppercase tracking-[0.3em] text-[10px] transition-colors py-2">
-                    <i class="fa-solid fa-link"></i> <span data-t="res_copy">Copy Link</span>
-                </button>
-
-                <button onclick="retakeQuiz()" class="mt-8 flex items-center gap-3 text-zinc-700 hover:text-zinc-400 font-black uppercase tracking-[0.3em] text-[10px] transition-colors border-t border-white/5 pt-8 w-full justify-center">
-                    <i class="fa-solid fa-rotate-left"></i> <span data-t="res_retake">Retake The Test</span>
+                <button onclick="location.reload()" class="mt-8 flex items-center gap-3 text-gray-400 hover:text-gray-800 font-bold uppercase tracking-widest text-[10px] transition-colors">
+                    <i class="fa-solid fa-rotate-left"></i> <span data-t="res_retake">Retake Test</span>
                 </button>
             </div>
         </section>
+
     </main>
 
-    <footer id="footer" class="py-20 px-6 border-t border-white/5 bg-brandDark text-center">
-        <div class="max-w-7xl mx-auto space-y-8">
-            <div class="flex items-center gap-2 justify-center">
-                <i class="fa-solid fa-fire text-brandRed text-lg"></i>
-                <span class="text-xl font-black italic tracking-tighter uppercase font-sans text-white">Insight Out</span>
-            </div>
-            <p id="copyright-text" class="text-zinc-600 text-[9px] font-bold tracking-[0.5em] uppercase font-sans">
-                &copy; 2026 INSIGHT OUT | SEOUL SPICY PRO FULL TRACKING v20.0
-            </p>
+    <footer class="py-20 border-t border-gray-100 text-center">
+        <div class="flex items-center gap-2 justify-center mb-4">
+            <i class="fa-solid fa-plane-up text-skyBlue"></i>
+            <span class="text-lg font-black italic uppercase text-gray-800">Insight Out</span>
         </div>
+        <p id="copyright-text" class="text-gray-300 text-[9px] font-bold tracking-[0.4em] uppercase font-sans">
+            &copy; 2026 INSIGHT OUT | SEOUL SKY TRAVEL EDITION
+        </p>
     </footer>
 
     <script>
@@ -185,21 +237,16 @@
             en: {
                 lang_label: "Language",
                 nav_btn: "Try Now",
-                hero_badge: "1-Min Spicy Soul Audit",
-                hero_title: "What's your <br/><span class='text-brandRed drop-shadow-[0_0_30px_rgba(255,0,60,0.5)] font-sans'>K-spicy level?</span>",
-                hero_desc: "A trip to Seoul in just 1 minute! <br/>Find your K-Spicy level and get a 0% fail-rate K-Food recommendation.",
                 hero_btn: "Start The Test",
                 quiz_progress: "Question {n} of {total}",
-                analyzing: "Calculating Your Spicy Soul...",
+                analyzing: "Scanning your spicy soul...",
                 pre_result_title: "Analysis Complete!",
                 pre_result_desc: "Your spicy level has been calculated. Are you ready to see your status card?",
                 pre_result_btn: "Check your result!",
+                res_download: "Save My Card",
+                res_share: "Share Level",
+                res_retake: "Retake Test",
                 res_hint: "Hold image to save result card",
-                res_download: "Download My Card",
-                res_share: "Share Your Level",
-                res_copy: "Copy Link",
-                res_retake: "Retake The Test",
-                copyright: "&copy; 2026 INSIGHT OUT | SEOUL SPICY PRO FULL TRACKING v20.0",
                 toast_copy: "🔗 Link Copied!",
                 questions: [
                     { image: "images/Q1.jpg", question: "You’re on a plane to Seoul, and bibimbap is served. The person next to you just dumped the entire gochujang in. What do you do?", options: [{ id: 'A', text: "Add just a little… maybe half", value: 0 }, { id: 'B', text: "No way I’m losing—dump it all in! 🔥", value: 1 }] },
@@ -207,30 +254,25 @@
                     { image: "images/Q3.jpg", question: "The sweet and spicy smell of tteokbokki hits you. What are you expecting from the first bite?", options: [{ id: 'A', text: "“I’m done…” reaches for water immediately", value: 0 }, { id: 'B', text: "Pretend you’re fine and go for another bite 😎", value: 1 }] },
                     { image: "images/Q4.jpg", question: "You spot a dish on the menu with 3 chili icons 🌶️🌶️🌶️. What’s your reaction?", options: [{ id: 'A', text: "“Let’s play it safe… maybe 1 chili level”", value: 0 }, { id: 'B', text: "“I came all this way—let’s try the signature spicy one!” 🔥", value: 1 }] },
                     { image: "images/Q5.jpg", question: "You just finished a legendary spicy meal. How are you handling the heat?", options: [{ id: 'A', text: "Grab something sweet like ice cream ASAP", value: 0 }, { id: 'B', text: "Don’t eat anything—just enjoy the spicy aftertaste", value: 1 }] },
-                    { image: "images/Q6.jpg", question: "Late-night hunger strikes in Seoul. What's your go-to delivery menu?", options: [{ id: 'A', text: "“Crispy and simple is best” → Fried chicken", value: 0 }, { id: 'B', text: "“Late-night food should hit hard🔥” → fire noodles", value: 1 }] }
+                    { image: "images/Q6.jpg", question: "Late-night hunger strikes in Seoul. What's your go-to delivery menu?", options: [{ id: 'A', text: "“Crispy and simple is best” → Fried chicken", value: 0 }, { id: 'B', text: "“Late-night food should hit hard🔥” → Fire noodles", value: 1 }] }
                 ]
             },
             id: {
                 lang_label: "Bahasa",
                 nav_btn: "Coba Sekarang",
-                hero_badge: "Audit Jiwa Pedas 1 Menit",
-                hero_title: "Apa level <br/><span class='text-brandRed drop-shadow-[0_0_30px_rgba(255,0,60,0.5)] font-sans'>K-spicy kamu?</span>",
-                hero_desc: "Hanya 1 menit perjalanan ke Seoul! <br/>Temukan level K-Spicy kamu dan dapatkan rekomendasi K-Food dengan tingkat kegagalan 0%.",
                 hero_btn: "Mulai Tes",
                 quiz_progress: "Pertanyaan {n} dari {total}",
-                analyzing: "Menghitung Jiwa Pedasmu...",
+                analyzing: "Menganalisis jiwa pedasmu...",
                 pre_result_title: "Analisis Selesai!",
                 pre_result_desc: "Level pedasmu sudah dihitung. Siap melihat kartu statusmu?",
                 pre_result_btn: "Cek Hasilnya!",
-                res_hint: "Tahan gambar untuk menyimpan kartu hasil",
-                res_download: "Unduh Kartu Saya",
-                res_share: "Bagikan Level Anda",
-                res_copy: "Salin Tautan",
+                res_download: "Unduh Kartu",
+                res_share: "Bagikan Level",
                 res_retake: "Ulangi Tes",
-                copyright: "&copy; 2026 INSIGHT OUT | SEOUL SPICY PRO FULL TRACKING v20.0",
+                res_hint: "Tahan gambar untuk menyimpan kartu",
                 toast_copy: "🔗 Tautan Disalin!",
                 questions: [
-                    { image: "images/Q1.jpg", question: "Kamu di pesawat ke Seoul, bibimbap disajikan. Orang sebelahmu nuang semua gochujang. Kamu gimana?", options: [{ id: 'A', text: "Dikit aja... mungkin setengah", value: 0 }, { id: 'B', text: "Gak mau kalah—tuang semua! 🔥", value: 1 }] },
+                    { image: "images/Q1.jpg", question: "Kamu di pesawat ke Seoul, bibimbap disajikan. Orang sebelahmu nuang 모든 gochujang. Kamu gimana?", options: [{ id: 'A', text: "Dikit aja... mungkin setengah", value: 0 }, { id: 'B', text: "Gak mau kalah—tuang semua! 🔥", value: 1 }] },
                     { image: "images/Q2.jpg", question: "Lihat video orang luar kepedasan makan jjamppong di media sosial...", options: [{ id: 'A', text: "“Ngapain sih nyiksa diri?”", value: 0 }, { id: 'B', text: "“Mau coba reaksi kayak gitu juga!”", value: 1 }] },
                     { image: "images/Q3.jpg", question: "Bau manis pedas tteokbokki kecium di jalan. Apa ekspektasimu saat gigitan pertama?", options: [{ id: 'A', text: "“Gak kuat...” langsung cari air", value: 0 }, { id: 'B', text: "Pura-pura kuat dan lanjut makan 😎", value: 1 }] },
                     { image: "images/Q4.jpg", question: "Ada menu dengan 3 ikon cabai 🌶️🌶️🌶️. Reaksimu?", options: [{ id: 'A', text: "“Cari aman... level 1 cabai aja”", value: 0 }, { id: 'B', text: "“Udah jauh-jauh kesini—coba yang paling pedas!” 🔥", value: 1 }] },
@@ -241,22 +283,20 @@
         };
 
         const RESULTS = {
-            baby: { level: "Baby", image: "images/result1.jpg", accent: "#3B82F6" },
-            adventurer: { level: "Adventurer", image: "images/result2.jpg", accent: "#F59E0B" },
-            dragon: { level: "Dragon", image: "images/result3.jpg", accent: "#FF003C" }
+            baby: { level: "Baby", image: "images/result1.jpg", accent: "#74C0FC" },
+            adventurer: { level: "Adventurer", image: "images/result2.jpg", accent: "#FAB005" },
+            dragon: { level: "Dragon", image: "images/result3.jpg", accent: "#FF4D4D" }
         };
 
         let currentQuestionIndex = 0;
         let score = 0;
         let finalResult = null;
 
-        window.dataLayer = window.dataLayer || [];
-
-        // --- IMAGE PRELOADING LOGIC ---
         function preloadAllImages() {
             const imagesToPreload = [
-                ...CONTENT.en.questions.map(q => q.image),
-                ...Object.values(RESULTS).map(r => r.image)
+                'images/Q1.jpg', 'images/Q2.jpg', 'images/Q3.jpg', 
+                'images/Q4.jpg', 'images/Q5.jpg', 'images/Q6.jpg',
+                'images/result1.jpg', 'images/result2.jpg', 'images/result3.jpg'
             ];
             imagesToPreload.forEach(src => {
                 const img = new Image();
@@ -264,79 +304,86 @@
             });
         }
 
+        const cursorContainer = document.getElementById('cursor-container');
+        window.addEventListener('mousemove', (e) => {
+            if(Math.random() > 0.4) return; 
+            const p = document.createElement('span');
+            p.textContent = '🌶️'; 
+            p.className = 'particle text-2xl';
+            p.style.left = `${e.clientX}px`; 
+            p.style.top = `${e.clientY}px`;
+            cursorContainer.appendChild(p);
+            requestAnimationFrame(() => {
+                p.style.transform = `translate(${Math.random() * 60 - 30}px, 60px) scale(0.3) rotate(${Math.random() * 360}deg)`;
+                p.style.opacity = '0';
+            });
+            setTimeout(() => p.remove(), 700);
+        });
+
         function setLanguage(lang) {
             currentLang = lang;
             const c = CONTENT[lang];
+            
             document.getElementById('lang-id').classList.toggle('lang-active', lang === 'id');
             document.getElementById('lang-en').classList.toggle('lang-active', lang === 'en');
+            
             document.querySelectorAll('[data-t]').forEach(el => {
                 const key = el.getAttribute('data-t');
                 if (c[key]) el.innerHTML = c[key];
             });
+
             document.getElementById('lang-label').innerText = c.lang_label;
-            document.getElementById('hero-title').innerHTML = c.hero_title;
-            document.getElementById('hero-desc').innerHTML = c.hero_desc;
+            document.getElementById('hero-title').innerHTML = (lang === 'en') ? "What's your <br/><span class='text-brandRed'>K-spicy level?</span>" : "Apa level <br/><span class='text-brandRed'>K-spicy kamu?</span>";
+            document.getElementById('hero-desc').innerHTML = (lang === 'en') 
+                ? "A trip to Seoul in just 1 minute! <br/>Find your K-Spicy level and get a 0% fail-rate K-Food recommendation." 
+                : "Hanya 1 menit perjalanan ke Seoul! <br/>Temukan level K-Spicy kamu 및 dapatkan rekomendasi K-Food dengan tingkat keg발생률 0%.";
+            
             document.getElementById('analyzing-text').innerText = c.analyzing;
             document.getElementById('pre-result-title').innerText = c.pre_result_title;
             document.getElementById('pre-result-desc').innerText = c.pre_result_desc;
             document.getElementById('pre-result-btn').innerText = c.pre_result_btn;
             document.getElementById('result-save-hint').innerText = c.res_hint;
-            document.getElementById('copyright-text').innerHTML = c.copyright;
-            if (!document.getElementById('view-quiz').classList.contains('hidden')) {
-                renderQuestion();
-            }
-        }
 
-        function showToast(msg) {
-            const toast = document.getElementById('custom-toast');
-            toast.innerText = msg; toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 2000);
+            if (!document.getElementById('view-quiz').classList.contains('hidden')) renderQuestion();
         }
 
         function switchView(viewId) {
-            const views = ['hero', 'quiz', 'analyzing', 'pre-result', 'result'];
-            views.forEach(v => {
+            ['hero', 'quiz', 'analyzing', 'pre-result', 'result'].forEach(v => {
                 const el = document.getElementById(`view-${v}`);
-                if(el) { el.classList.add('hidden'); el.classList.remove('fade-in'); }
+                if(el) el.classList.add('hidden');
             });
-            const targetView = document.getElementById(`view-${viewId}`);
-            if(targetView) {
-                targetView.classList.remove('hidden');
-                void targetView.offsetWidth; targetView.classList.add('fade-in');
+            const target = document.getElementById(`view-${viewId}`);
+            if(target) {
+                target.classList.remove('hidden');
+                target.classList.add('fade-in');
             }
             window.scrollTo(0,0);
         }
 
         function startQuiz() {
             window.dataLayer.push({ 'event': 'quiz_start' });
-            currentQuestionIndex = 0; score = 0; finalResult = null;
+            currentQuestionIndex = 0; score = 0;
             switchView('quiz'); renderQuestion();
         }
 
         function renderQuestion() {
             const c = CONTENT[currentLang];
-            const questionsArr = c.questions;
-            const q = questionsArr[currentQuestionIndex];
-            document.getElementById('quiz-progress-text').innerText = c.quiz_progress.replace('{n}', currentQuestionIndex + 1).replace('{total}', questionsArr.length);
-            document.getElementById('quiz-progress-bar').style.width = `${((currentQuestionIndex + 1) / questionsArr.length) * 100}%`;
-            const qImg = document.getElementById('quiz-image');
-            if(q.image) { qImg.src = q.image; qImg.classList.remove('hidden'); qImg.onerror = function() { this.classList.add('hidden'); }; } 
-            else { qImg.classList.add('hidden'); }
+            const q = c.questions[currentQuestionIndex];
+            document.getElementById('quiz-progress-text').innerText = c.quiz_progress.replace('{n}', currentQuestionIndex + 1).replace('{total}', 6);
+            document.getElementById('quiz-progress-bar').style.width = `${((currentQuestionIndex + 1) / 6) * 100}%`;
+            document.getElementById('quiz-image').src = q.image;
             document.getElementById('quiz-question').innerText = q.question;
             const optionsContainer = document.getElementById('quiz-options');
             optionsContainer.innerHTML = '';
             q.options.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = `w-full text-left p-6 md:p-8 rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 active:scale-95 hover:border-brandRed/50 hover:bg-brandRed/10`;
-                btn.innerHTML = `<span class="text-base md:text-lg font-bold tracking-tight text-white font-sans">${opt.text}</span>`;
+                btn.className = `btn-hop w-full text-left p-5 md:p-6 rounded-2xl bg-white/60 border border-white/80 font-bold text-gray-700 hover:bg-white shadow-sm font-sans`;
+                btn.innerHTML = `<span class="text-sm md:text-base">${opt.text}</span>`;
                 btn.onclick = () => {
-                    window.dataLayer.push({ 'event': 'question_answered', 'question_number': currentQuestionIndex + 1, 'selected_option': opt.id });
+                    window.dataLayer.push({ 'event': 'question_answered', 'num': currentQuestionIndex+1, 'opt': opt.id });
                     score += opt.value;
-                    if (currentQuestionIndex < questionsArr.length - 1) { 
-                        currentQuestionIndex++; renderQuestion(); 
-                    } else { 
-                        finishQuiz(); 
-                    }
+                    if (currentQuestionIndex < 5) { currentQuestionIndex++; renderQuestion(); }
+                    else { finishQuiz(); }
                 };
                 optionsContainer.appendChild(btn);
             });
@@ -354,75 +401,37 @@
         }
 
         function viewFinalResult() {
-            if (!sessionStorage.getItem('tiktok_conversion_fired')) {
-                window.dataLayer.push({ 'event': 'SubmitForm', 'result_level': finalResult.level, 'conversion_type': 'quiz_result_view' });
-                sessionStorage.setItem('tiktok_conversion_fired', 'true');
-            }
+            // GA Event for tracking the final result card view
+            window.dataLayer.push({ 'event': 'view_result_card', 'result_level': finalResult.level });
             switchView('result');
         }
 
         async function downloadResult() {
             window.dataLayer.push({'event': 'click_download'});
-            if(!finalResult) return;
-            try {
-                const response = await fetch(finalResult.image);
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `InsightOut_Result_${finalResult.level}.jpg`;
-                document.body.appendChild(link); link.click();
-                document.body.removeChild(link); window.URL.revokeObjectURL(url);
-            } catch (e) { window.open(finalResult.image, '_blank'); }
+            const link = document.createElement('a');
+            link.href = finalResult.image;
+            link.download = `InsightOut_Level_${finalResult.level}.jpg`;
+            link.click();
         }
 
         async function handleSmartShare() {
             window.dataLayer.push({'event': 'click_share'});
-            const shareData = { 
-                title: 'K-Spicy Level Test', 
-                text: currentLang === 'en' ? `I just got '${finalResult.level}' level! Can you beat my K-spicy soul? 🔥` : `Saya baru saja mendapatkan level '${finalResult.level}'! Bisakah kamu mengalahkan jiwa K-spicy saya? 🔥`, 
-                url: window.location.href 
-            };
+            const text = currentLang === 'en' ? `I'm a ${finalResult.level}! Check your K-spicy level! 🔥` : `Saya level ${finalResult.level}! Cek level K-spicy kamu! 🔥`;
             if (navigator.share) {
-                try { await navigator.share(shareData); } 
-                catch (err) { console.log('Share cancelled or failed'); }
-            } else { copyLinkAction(); }
+                try { await navigator.share({ title: 'K-Spicy Level', text: text, url: window.location.href }); } catch (err) {}
+            } else {
+                const dummy = document.createElement('input');
+                document.body.appendChild(dummy); dummy.value = window.location.href; dummy.select();
+                document.execCommand('copy'); document.body.removeChild(dummy);
+                const toast = document.getElementById('custom-toast');
+                toast.innerText = CONTENT[currentLang].toast_copy;
+                toast.style.display = 'block'; setTimeout(() => { toast.style.display = 'none'; }, 2000);
+            }
         }
 
-        function copyLinkAction() {
-            window.dataLayer.push({'event': 'click_copy_link'});
-            const dummy = document.createElement('input');
-            dummy.style.position = 'fixed'; dummy.style.opacity = '0';
-            document.body.appendChild(dummy);
-            dummy.value = window.location.href;
-            dummy.select();
-            document.execCommand('copy');
-            document.body.removeChild(dummy);
-            showToast(CONTENT[currentLang].toast_copy);
-        }
-
-        function retakeQuiz() {
-            window.dataLayer.push({'event': 'click_retake'});
-            location.reload();
-        }
-
-        const cursorContainer = document.getElementById('cursor-container');
-        window.addEventListener('mousemove', (e) => {
-            if(Math.random() > 0.4) return; 
-            const p = document.createElement('span');
-            p.textContent = '🌶️'; p.className = 'particle text-2xl';
-            p.style.left = `${e.clientX}px`; p.style.top = `${e.clientY}px`;
-            cursorContainer.appendChild(p);
-            requestAnimationFrame(() => {
-                p.style.transform = `translate(${Math.random() * 40 - 20}px, 50px) scale(0.4)`;
-                p.style.opacity = '0';
-            });
-            setTimeout(() => p.remove(), 700);
-        });
-
-        window.onload = () => {
-            setLanguage('en');
-            preloadAllImages(); // 페이지 로드 시 이미지 미리 불러오기 실행
+        window.onload = () => { 
+            preloadAllImages();
+            setLanguage('en'); 
         };
     </script>
 </body>
