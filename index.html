@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <!-- Google Tag Manager (절대 삭제 금지: GA/GTM 연동 코드) -->
+    <!-- Google Tag Manager (절대 삭제/수정 금지: GA/GTM 연동 유지) -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -64,13 +64,10 @@
             transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1); 
         }
 
-        /* 비행기 창문 프레임 - 모바일 대응 크기 조정 */
         .window-frame {
             border: 8px solid #FFFFFF;
             border-radius: 40px;
-            box-shadow: 
-                inset 0 0 10px rgba(0,0,0,0.05),
-                0 10px 20px rgba(0,0,0,0.05);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.05);
             overflow: hidden;
             background: #f8fbff;
         }
@@ -86,7 +83,7 @@
         .btn-hop:hover { transform: translateY(-2px); }
         .btn-hop:active { transform: scale(0.97); }
 
-        .lang-active { background-color: #FF4D4D; color: white; box-shadow: 0 4px 10px rgba(255,77,77,0.3); }
+        .lang-active { background-color: #FF4D4D !important; color: white !important; box-shadow: 0 4px 10px rgba(255,77,77,0.3); }
 
         #custom-toast { 
             position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); 
@@ -120,8 +117,8 @@
             <div class="flex items-center gap-1.5 md:gap-2">
                 <span id="lang-label" class="hidden sm:inline text-[9px] font-black uppercase tracking-widest text-gray-400">Language</span>
                 <div class="bg-white/60 p-0.5 rounded-full border border-white/40 flex items-center gap-0.5 shadow-sm">
-                    <button id="lang-id" onclick="setLanguage('id')" class="lang-toggle-btn px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase">ID</button>
-                    <button id="lang-en" onclick="setLanguage('en')" class="lang-toggle-btn px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase lang-active">EN</button>
+                    <button id="lang-id" onclick="setLanguage('id')" class="lang-toggle-btn px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase transition-all">ID</button>
+                    <button id="lang-en" onclick="setLanguage('en')" class="lang-toggle-btn px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase lang-active transition-all">EN</button>
                 </div>
             </div>
             <button onclick="startQuiz()" data-t="nav_btn" class="bg-gray-900 text-white px-3 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest hover:bg-black transition-colors shadow-sm">Try Now</button>
@@ -130,17 +127,15 @@
 
     <main class="relative z-10 pt-14">
         
-        <!-- SECTION 1: HERO (한 화면에 다 들어오도록 여백 축소) -->
+        <!-- SECTION 1: HERO -->
         <section id="view-hero" class="fade-in min-h-[85vh] flex flex-col justify-center items-center px-6 text-center">
             <div id="hero-badge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-deepSky text-[9px] md:text-[10px] font-black uppercase tracking-[0.15em] mb-4 shadow-sm border border-skyBlue/20">
                 <i class="fa-solid fa-location-dot"></i> In-Flight to Seoul
             </div>
-            <!-- 첫 화면 제목: 크고 시원하게 (5xl / 8xl) -->
             <h1 id="hero-title" class="text-5xl md:text-8xl font-black text-gray-900 leading-[1.05] tracking-tighter mb-6 font-sans italic uppercase">
                 What's your <br/>
                 <span class="text-brandRed drop-shadow-sm">K-Spicy level?</span>
             </h1>
-            <!-- 설명: 가독성 높게 (base / lg) -->
             <p id="hero-desc" class="text-gray-600 text-base md:text-xl max-w-2xl mx-auto mb-8 font-semibold leading-relaxed font-sans">
                 A trip to Seoul in just 1 minute! <br/>
                 Find your K-Spicy level and get a 0% fail-rate K-Food recommendation.
@@ -154,7 +149,7 @@
         <section id="view-quiz" class="hidden fade-in min-h-[80vh] py-8 px-5 flex flex-col items-center justify-center">
             <div class="w-full max-w-lg glass-card rounded-[40px] p-6 md:p-10">
                 <div class="flex justify-between items-center mb-5">
-                    <span id="quiz-progress-text" class="text-[9px] font-black uppercase tracking-widest text-deepSky font-sans">Question 1 of 6</span>
+                    <span id="quiz-progress-text" class="text-[10px] font-black uppercase tracking-widest text-deepSky font-sans">Question 1 of 6</span>
                 </div>
                 <div class="mb-6 h-1.5 w-full bg-white/50 rounded-full overflow-hidden shadow-inner">
                     <div id="quiz-progress-bar" class="h-full w-0 transition-all duration-500"></div>
@@ -164,7 +159,6 @@
                     <div class="window-frame mb-6">
                         <img id="quiz-image" src="" alt="" class="w-full h-44 md:h-60 object-cover" />
                     </div>
-                    <!-- 질문 텍스트: 제목보다 작은 크기 (xl / 2xl) -->
                     <h3 id="quiz-question" class="text-xl md:text-2xl font-black text-gray-800 mb-6 leading-snug tracking-tight font-sans">Question</h3>
                     <div class="grid gap-2.5" id="quiz-options"></div>
                 </div>
@@ -206,14 +200,17 @@
             </div>
 
             <div class="flex flex-col items-center gap-4 w-full max-w-sm font-sans">
-                <button onclick="downloadResult()" class="btn-hop w-full bg-gray-900 text-white py-5 md:py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl">
+                <!-- Save Button (ID/Tagging maintained) -->
+                <button id="download-btn" onclick="downloadResult()" class="btn-hop w-full bg-gray-900 text-white py-5 md:py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl">
                     <i class="fa-solid fa-download mr-2"></i> <span data-t="res_download">Save My Card</span>
                 </button>
+                <!-- Share Button (Inclusive wording updated) -->
                 <button onclick="handleSmartShare()" class="btn-hop w-full bg-white border border-gray-100 text-gray-800 py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-sm">
-                    <i class="fa-solid fa-share-nodes text-brandRed mr-2"></i> <span data-t="res_share">Share with Friends</span>
+                    <i class="fa-solid fa-share-nodes text-brandRed mr-2"></i> <span data-t="res_share">Share My Result</span>
                 </button>
-                <button onclick="location.reload()" class="mt-8 text-gray-400 font-black uppercase tracking-[0.2em] text-[9px] transition-colors">
-                    <i class="fa-solid fa-rotate-left"></i> <span data-t="res_retake">Retake Test</span>
+                <!-- Retake Button (ID/Tagging maintained) -->
+                <button onclick="retakeQuiz()" class="mt-8 text-gray-400 font-black uppercase tracking-[0.2em] text-[9px] transition-colors">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> <span data-t="res_retake">Retake Test</span>
                 </button>
             </div>
         </section>
@@ -223,7 +220,7 @@
     <footer class="py-12 border-t border-gray-100 text-center">
         <div class="flex items-center gap-2 justify-center mb-4 text-gray-800">
             <i class="fa-solid fa-plane-up text-skyBlue"></i>
-            <span class="text-base font-black italic uppercase">Insight Out</span>
+            <span class="text-lg font-black italic uppercase leading-none">Insight Out</span>
         </div>
         <p id="copyright-text" class="text-gray-400 text-[9px] font-bold tracking-[0.4em] uppercase font-sans">
             &copy; 2026 INSIGHT OUT | SEOUL SKY TRAVEL EDITION
@@ -233,12 +230,13 @@
     <script>
         let currentLang = 'en';
 
+        // 텍스트 설정 (인도네시아어 완벽 현지화 및 Inclusive 문구 적용)
         const CONTENT = {
             en: {
                 lang_label: "Language",
                 nav_btn: "Try Now",
                 hero_badge: "<i class='fa-solid fa-location-dot'></i> In-Flight to Seoul",
-                hero_title: "What's your <br/><span class='text-brandRed drop-shadow-sm'>K-spicy level?</span>",
+                hero_title: "What's your <br/><span class='text-brandRed drop-shadow-sm'>K-Spicy level?</span>",
                 hero_desc: "A trip to Seoul in just 1 minute! <br/>Find your K-Spicy level and get a 0% fail-rate K-Food recommendation.",
                 hero_btn: "Start The Test",
                 quiz_progress: "Question {n} of {total}",
@@ -247,7 +245,7 @@
                 pre_result_desc: "Your spicy level has been calculated. Ready to see your status card?",
                 pre_result_btn: "Check your result!",
                 res_download: "Save My Card",
-                res_share: "Share with Friends",
+                res_share: "Share My Result", // Updated from 'with friends'
                 res_retake: "Retake Test",
                 res_hint: "Hold image to save result card",
                 toast_copy: "🔗 Link Copied!",
@@ -273,7 +271,7 @@
                 pre_result_desc: "Level pedasmu sudah dihitung. Siap melihat kartu statusmu?",
                 pre_result_btn: "Cek Hasilnya!",
                 res_download: "Unduh Kartu",
-                res_share: "Bagikan ke Teman",
+                res_share: "Bagikan Hasil Saya", // Updated to be inclusive
                 res_retake: "Ulangi Tes",
                 res_hint: "Tahan gambar untuk menyimpan kartu",
                 toast_copy: "🔗 Tautan Disalin!",
@@ -282,7 +280,7 @@
                     { image: "images/Q2.jpg", question: "Lihat video orang luar kepedasan makan jjamppong di media sosial...", options: [{ id: 'A', text: "“Ngapain sih nyiksa diri?”", value: 0 }, { id: 'B', text: "“Mau coba reaksi kayak gitu juga!”", value: 1 }] },
                     { image: "images/Q3.jpg", question: "Bau manis pedas tteokbokki kecium di jalan. Apa ekspektasimu saat gigitan pertama?", options: [{ id: 'A', text: "“Gak kuat...” langsung cari air", value: 0 }, { id: 'B', text: "Pura-pura kuat dan lanjut makan 😎", value: 1 }] },
                     { image: "images/Q4.jpg", question: "Ada menu dengan 3 ikon cabai 🌶️🌶️🌶️. Reaksimu?", options: [{ id: 'A', text: "“Cari aman... level 1 cabai aja”", value: 0 }, { id: 'B', text: "“Udah jauh-jauh kesini—coba yang paling pedas!” 🔥", value: 1 }] },
-                    { image: "images/Q5.jpg", question: "Baru selesai makan super ped사. Gimana caramu nahan pedasnya?", options: [{ id: 'A', text: "Cari yang manis seperti es krim secepatnya", value: 0 }, { id: 'B', text: "Gak usah makan apa-apa—nikmati saja rasa pedasnya", value: 1 }] },
+                    { image: "images/Q5.jpg", question: "Baru selesai makan super pedas. Gimana caramu nahan pedasnya?", options: [{ id: 'A', text: "Cari yang manis seperti es krim secepatnya", value: 0 }, { id: 'B', text: "Gak usah makan apa-apa—nikmati saja rasa pedasnya", value: 1 }] },
                     { image: "images/Q6.jpg", question: "Lapar tengah malam di Seoul. Apa menu delivery pilihanmu?", options: [{ id: 'A', text: "“Crispy dan simpel paling benar” → Ayam goreng", value: 0 }, { id: 'B', text: "“Makan malam harus nendang🔥” → Mie pedas", value: 1 }] }
                 ]
             }
@@ -381,10 +379,14 @@
             optionsContainer.innerHTML = '';
             q.options.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = `btn-hop w-full text-left p-4.5 md:p-6 rounded-2xl bg-white/60 border-2 border-white/80 font-bold text-gray-800 hover:bg-white shadow-sm font-sans`;
+                btn.className = `btn-hop w-full text-left p-4.5 md:p-6 rounded-[1.5rem] bg-white/60 border-2 border-white/80 font-bold text-gray-800 hover:bg-white shadow-sm font-sans`;
                 btn.innerHTML = `<span class="text-sm md:text-base">${opt.text}</span>`;
                 btn.onclick = () => {
-                    window.dataLayer.push({ 'event': 'question_answered', 'num': currentQuestionIndex+1, 'opt': opt.id });
+                    window.dataLayer.push({ 
+                        'event': 'question_answered', 
+                        'question_number': currentQuestionIndex + 1, 
+                        'selected_option': opt.id 
+                    });
                     score += opt.value;
                     if (currentQuestionIndex < 5) { currentQuestionIndex++; renderQuestion(); }
                     else { finishQuiz(); }
@@ -405,7 +407,11 @@
         }
 
         function viewFinalResult() {
-            window.dataLayer.push({ 'event': 'view_result_card', 'result_level': finalResult.level });
+            window.dataLayer.push({ 
+                'event': 'SubmitForm', 
+                'result_level': finalResult.level, 
+                'conversion_type': 'quiz_result_view' 
+            });
             switchView('result');
         }
 
@@ -413,7 +419,7 @@
             window.dataLayer.push({'event': 'click_download'});
             const link = document.createElement('a');
             link.href = finalResult.image;
-            link.download = `InsightOut_Level_${finalResult.level}.jpg`;
+            link.download = `InsightOut_Result_${finalResult.level}.jpg`;
             link.click();
         }
 
@@ -429,7 +435,13 @@
                 const toast = document.getElementById('custom-toast');
                 toast.innerText = CONTENT[currentLang].toast_copy;
                 toast.style.display = 'block'; setTimeout(() => { toast.style.display = 'none'; }, 2000);
+                window.dataLayer.push({'event': 'click_copy_link'});
             }
+        }
+
+        function retakeQuiz() {
+            window.dataLayer.push({'event': 'click_retake'});
+            location.reload();
         }
 
         window.onload = () => { 
