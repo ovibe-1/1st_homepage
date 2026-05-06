@@ -40,6 +40,7 @@
         .btn-hop:active { transform: scale(0.97); }
         .lang-active { background-color: #FF4D4D !important; color: white !important; box-shadow: 0 4px 10px rgba(255,77,77,0.3); }
         #custom-toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: #2D3436; color: white; padding: 0.8rem 1.5rem; border-radius: 99px; font-weight: 700; z-index: 1000; display: none; font-size: 0.8rem; }
+        #quiz-progress-bar { background: linear-gradient(90deg, #74C0FC 0%, #FF4D4D 100%); }
     </style>
 </head>
 <body class="selection:bg-skyBlue/30 relative text-gray-800">
@@ -53,7 +54,7 @@
             <div class="w-7 h-7 bg-brandRed rounded-lg flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform shadow-md">
                 <i class="fa-solid fa-plane text-white text-xs"></i>
             </div>
-            <span class="text-base md:text-xl font-black italic tracking-tighter uppercase leading-none">Insight Out</span>
+            <span class="text-base md:text-xl font-black italic tracking-tighter uppercase leading-none font-sans">Insight Out</span>
         </div>
         <div class="flex items-center gap-2 md:gap-4">
             <div class="flex items-center gap-1.5 md:gap-2">
@@ -63,7 +64,7 @@
                     <button id="lang-en" onclick="setLanguage('en')" class="lang-toggle-btn px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase lang-active transition-all">EN</button>
                 </div>
             </div>
-            <button onclick="startQuiz()" class="bg-gray-900 text-white px-3 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest hover:bg-black transition-colors shadow-sm">Try Now</button>
+            <button onclick="startQuiz()" class="bg-gray-900 text-white px-3 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest hover:bg-black transition-colors shadow-sm font-sans">Try Now</button>
         </div>
     </header>
 
@@ -79,7 +80,6 @@
             </h1>
             <p id="hero-desc" class="text-gray-600 text-base md:text-xl max-w-2xl mx-auto mb-10 font-semibold leading-relaxed font-sans text-center"></p>
             <div class="w-full flex justify-center px-4">
-                <!-- Start The Test 버튼에 깜빡임(animate-pulse) 적용 -->
                 <button onclick="startQuiz()" id="hero-btn" class="btn-hop group bg-white text-gray-900 w-full max-w-[340px] md:w-fit md:min-w-[400px] px-8 md:px-16 py-6 md:py-8 rounded-full font-black text-lg md:text-2xl uppercase tracking-[0.1em] shadow-xl border border-gray-100 hover:bg-brandRed hover:text-white transition-all font-sans whitespace-nowrap animate-pulse">
                     <span data-t="hero_btn">Start The Test</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                 </button>
@@ -88,32 +88,31 @@
 
         <!-- SECTION 2: QUIZ -->
         <section id="view-quiz" class="hidden fade-in min-h-[80vh] py-8 px-5 flex flex-col items-center justify-center">
-            <div class="w-full max-w-xl glass-card rounded-[40px] p-6 md:p-10">
+            <div class="w-full max-w-xl glass-card rounded-[40px] p-6 md:p-10 text-center">
                 <div class="flex justify-between items-center mb-5 text-left">
                     <span id="quiz-progress-text" class="text-[10px] font-black uppercase tracking-widest text-deepSky font-sans"></span>
                 </div>
-                <div class="mb-6 h-1.5 w-full bg-white/50 rounded-full overflow-hidden shadow-inner">
-                    <div id="quiz-progress-bar" class="h-full w-0 transition-all duration-500 bg-gradient-to-r from-deepSky to-brandRed"></div>
+                <div class="mb-6 h-1.5 w-full bg-white/50 rounded-full overflow-hidden shadow-inner border border-white/20">
+                    <div id="quiz-progress-bar" class="h-full w-0 transition-all duration-500 bg-gradient-to-r from-deepSky to-brandRed shadow-[0_0_10px_rgba(255,77,77,0.4)]"></div>
                 </div>
                 <div id="quiz-content" class="fade-in text-gray-800">
                     <div class="window-frame mb-6 text-center">
                         <img id="quiz-image" src="" alt="Quiz" class="w-full h-44 md:h-60 object-cover bg-gray-100 mx-auto" />
                     </div>
-                    <!-- 문항 가독성을 위해 왼쪽 정렬(text-left) 적용 -->
+                    <!-- 질문 텍스트: 가독성을 위해 왼쪽 정렬 유지 -->
                     <h3 id="quiz-question" class="text-lg md:text-xl font-black mb-8 leading-snug tracking-tight font-sans text-left"></h3>
-                    <!-- 선택지 중앙 정렬을 위한 그리드 설정 -->
                     <div class="grid gap-3.5" id="quiz-options"></div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION 3: ANALYZING -->
-        <section id="view-analyzing" class="hidden min-h-[60vh] flex flex-col justify-center items-center text-center">
+        <section id="view-analyzing" class="hidden min-h-[60vh] flex flex-col justify-center items-center text-center px-6">
             <div class="mb-6 relative">
                 <i class="fa-solid fa-cloud text-7xl text-skyBlue animate-pulse"></i>
                 <i class="fa-solid fa-plane text-2xl text-brandRed absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></i>
             </div>
-            <h2 id="analyzing-text" class="text-xl font-black uppercase tracking-widest text-gray-700 font-sans leading-relaxed px-6 text-center"></h2>
+            <h2 id="analyzing-text" class="text-xl font-black uppercase tracking-widest text-gray-700 font-sans leading-relaxed"></h2>
         </section>
 
         <!-- SECTION 4: PRE-RESULT -->
@@ -139,7 +138,7 @@
                 </div>
             </div>
             <div class="mb-6 inline-flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full border border-gray-100 shadow-sm mx-auto">
-                <span id="result-save-hint" class="text-[9px] font-black text-gray-400 uppercase tracking-widest font-sans text-center"></span>
+                <span id="result-save-hint" class="text-[9px] font-black text-gray-400 uppercase tracking-widest font-sans"></span>
             </div>
             <div class="flex flex-col items-center gap-4 w-full max-w-sm font-sans px-4 mx-auto">
                 <button id="download-btn" onclick="downloadResult()" class="btn-hop w-full bg-gray-900 text-white py-6 md:py-5 rounded-2xl font-black text-lg md:text-sm uppercase tracking-widest shadow-xl whitespace-nowrap">
@@ -168,6 +167,7 @@
     <script>
         let currentLang = 'en';
         
+        // 텍스트 데이터: 인도네시아어 완벽 정제 & 4번, 5번 문항 B 선택지 줄바꿈 적용
         const CONTENT = {
             en: {
                 lang_label: "Language",
@@ -189,7 +189,7 @@
                     { image: "images/Q2.jpg", question: "You’re scrolling through social media while waiting for the train. You see a foreigner turning bright red while eating super spicy jjamppong?", options: [{ id: 'A', text: "“Why would anyone do that to themselves?”", value: 0 }, { id: 'B', text: "“I wanna try that reaction too!”", value: 1 }] },
                     { image: "images/Q3.jpg", question: "The sweet and spicy smell of tteokbokki hits you on the street. What are you expecting from the first bite?", options: [{ id: 'A', text: "“I’m done…” reaches for water immediately", value: 0 }, { id: 'B', text: "Pretend you’re fine and go for another bite 😎", value: 1 }] },
                     { image: "images/Q4.jpg", question: "You spot a dish on the menu with 3 chili icons 🌶️🌶️🌶️. What’s your reaction?", options: [{ id: 'A', text: "“Let’s play it safe… maybe 1 chili level”", value: 0 }, { id: 'B', text: "“I came all this way <br/> - let's try the signature spicy one!” 🔥", value: 1 }] },
-                    { image: "images/Q5.jpg", question: "Your mouth is on fire. What’s the first thing you do?", options: [{ id: 'A', text: "Grab something sweet like ice cream ASAP", value: 0 }, { id: 'B', text: "Don’t eat anything—just enjoy the spicy aftertaste", value: 1 }] },
+                    { image: "images/Q5.jpg", question: "Your mouth is on fire. What’s the first thing you do?", options: [{ id: 'A', text: "Grab something sweet like ice cream ASAP", value: 0 }, { id: 'B', text: "Don’t eat anything <br/> - just enjoy the spicy aftertaste", value: 1 }] },
                     { image: "images/Q6.jpg", question: "Late-night cravings strike in Seoul. What's your go-to delivery menu?", options: [{ id: 'A', text: "“Crispy and simple is best” → fried chicken", value: 0 }, { id: 'B', text: "“Late-night food should hit hard🔥” <br/> → fire noodles", value: 1 }] }
                 ]
             },
@@ -213,7 +213,7 @@
                     { image: "images/Q2.jpg", question: "Lagi scroll sosmed sambil nunggu kereta. Lihat video orang asing kepedasan makan jjamppong?", options: [{ id: 'A', text: "“Kenapa sih mereka menyiksa diri sendiri?”", value: 0 }, { id: 'B', text: "“Wah, aku juga mau coba reaksi kayak gitu juga!”", value: 1 }] },
                     { image: "images/Q3.jpg", question: "Aroma pedas manis tteokbokki kecium di jalanan Seoul. Apa yang kamu harapkan di gigitan pertama?", options: [{ id: 'A', text: "“Aduh...” langsung cari air putih", value: 0 }, { id: 'B', text: "Pura-pura kuat dan lanjut makan 😎", value: 1 }] },
                     { image: "images/Q4.jpg", question: "Ada menu dengan 3 ikon cabai 🌶️🌶️🌶️. Apa yang akan kamu pilih?", options: [{ id: 'A', text: "“Cari aman... yang level 1 cabai saja”", value: 0 }, { id: 'B', text: "“Sudah sampai sini <br/> - coba yang paling pedas!” 🔥", value: 1 }] },
-                    { image: "images/Q5.jpg", question: "Mulutmu terasa terbakar. Apa hal pertama yang kamu lakukan?", options: [{ id: 'A', text: "Cari sesuatu yang manis seperti es krim secepatnya", value: 0 }, { id: 'B', text: "Biarin aja—nikmati sisa rasa pedasnya", value: 1 }] },
+                    { image: "images/Q5.jpg", question: "Mulutmu terasa terbakar. Apa hal pertama yang kamu lakukan?", options: [{ id: 'A', text: "Cari sesuatu yang manis seperti es krim secepatnya", value: 0 }, { id: 'B', text: "Biarin aja <br/> - nikmati sisa rasa pedasnya", value: 1 }] },
                     { image: "images/Q6.jpg", question: "Nonton K-drama terus lapar tengah malam. Apa menu pilihanmu?", options: [{ id: 'A', text: "“Yang krispi dan simpel paling pas” → fried chicken", value: 0 }, { id: 'B', text: "“Makan malam harus nendang🔥” <br/> → fire noodles", value: 1 }] }
                 ]
             }
