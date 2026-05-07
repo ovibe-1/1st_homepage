@@ -61,7 +61,7 @@
                 <span id="lang-label" class="hidden sm:inline text-[9px] font-black uppercase tracking-widest text-gray-400">Language</span>
                 <div class="bg-white/60 p-0.5 rounded-full border border-white/40 flex items-center gap-0.5 shadow-sm">
                     <button id="lang-id" onclick="setLanguage('id')" class="lang-toggle-btn px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase transition-all">ID</button>
-                    <button id="lang-en" onclick="setLanguage('en')" class="lang-toggle-btn px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase lang-active transition-all">EN</button>
+                    <button id="lang-en" onclick="setLanguage('en')" class="lang-toggle-btn px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase transition-all">EN</button>
                 </div>
             </div>
             <button onclick="startQuiz()" class="bg-gray-900 text-white px-3 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest hover:bg-black transition-colors shadow-sm font-sans">Try Now</button>
@@ -99,7 +99,6 @@
                     <div class="window-frame mb-6 text-center">
                         <img id="quiz-image" src="" alt="Quiz" class="w-full h-44 md:h-60 object-cover bg-gray-100 mx-auto" />
                     </div>
-                    <!-- 질문 텍스트: 가독성을 위해 왼쪽 정렬 유지 -->
                     <h3 id="quiz-question" class="text-lg md:text-xl font-black mb-8 leading-snug tracking-tight font-sans text-left"></h3>
                     <div class="grid gap-3.5" id="quiz-options"></div>
                 </div>
@@ -167,7 +166,6 @@
     <script>
         let currentLang = 'en';
         
-        // 텍스트 데이터: 인도네시아어 완벽 정제 & 4번, 5번 문항 B 선택지 줄바꿈 적용
         const CONTENT = {
             en: {
                 lang_label: "Language",
@@ -211,22 +209,55 @@
                 questions: [
                     { image: "images/Q1.jpg", question: "Kamu di pesawat ke Seoul, bibimbap disajikan. Orang di sebelahmu menuang semua gochujang. Apa reaksimu?", options: [{ id: 'A', text: "Tuang sedikit saja... mungkin setengah", value: 0 }, { id: 'B', text: "Gak mau kalah—tuang semuanya! 🔥", value: 1 }] },
                     { image: "images/Q2.jpg", question: "Lagi scroll sosmed sambil nunggu kereta. Lihat video orang asing kepedasan makan jjamppong?", options: [{ id: 'A', text: "“Kenapa sih mereka menyiksa diri sendiri?”", value: 0 }, { id: 'B', text: "“Wah, aku juga mau coba reaksi kayak gitu juga!”", value: 1 }] },
-                    { image: "images/Q3.jpg", question: "Aroma pedas manis tteokbokki kecium di jalanan Seoul. Apa yang kamu harapkan di gigitan pertama?", options: [{ id: 'A', text: "“Aduh...” langsung cari air putih", value: 0 }, { id: 'B', text: "Pura-pura kuat dan lanjut makan 😎", value: 1 }] },
+                    { image: "images/Q3.jpg", question: "Aroma pedas manis tteokbokki kecium di jalanan Seoul. Apa yang kamu harapkan di gigitan pertama?", options: [{ id: 'A', text: "“Aduh...” langsung cari air putih", value: 0 }, { id: 'B', text: "Pura-pura kuat 및 lanjut makan 😎", value: 1 }] },
                     { image: "images/Q4.jpg", question: "Ada menu dengan 3 ikon cabai 🌶️🌶️🌶️. Apa yang akan kamu pilih?", options: [{ id: 'A', text: "“Cari aman... yang level 1 cabai saja”", value: 0 }, { id: 'B', text: "“Sudah sampai sini <br/> - coba yang paling pedas!” 🔥", value: 1 }] },
                     { image: "images/Q5.jpg", question: "Mulutmu terasa terbakar. Apa hal pertama yang kamu lakukan?", options: [{ id: 'A', text: "Cari sesuatu yang manis seperti es krim secepatnya", value: 0 }, { id: 'B', text: "Biarin aja <br/> - nikmati sisa rasa pedasnya", value: 1 }] },
-                    { image: "images/Q6.jpg", question: "Nonton K-drama terus lapar tengah malam. Apa menu pilihanmu?", options: [{ id: 'A', text: "“Yang krispi dan simpel paling pas” → fried chicken", value: 0 }, { id: 'B', text: "“Makan malam harus nendang🔥” <br/> → fire noodles", value: 1 }] }
+                    { image: "images/Q6.jpg", question: "Nonton K-drama terus lapar tengah malam. Apa menu pilihanmu?", options: [{ id: 'A', text: "“Yang krispi 및 simpel paling pas” → fried chicken", value: 0 }, { id: 'B', text: "“Makan malam harus nendang🔥” <br/> → fire noodles", value: 1 }] }
                 ]
             }
         };
 
-        const RESULTS = { baby: { level: "Baby", image: "images/result1.jpg", accent: "#74C0FC" }, adventurer: { level: "Adventurer", image: "images/result2.jpg", accent: "#FAB005" }, dragon: { level: "Dragon", image: "images/result3.jpg", accent: "#FF4D4D" } };
-        let currentQuestionIndex = 0, score = 0, finalResult = null;
-        function preloadAllImages() { ['images/Q1.jpg', 'images/Q2.jpg', 'images/Q3.jpg', 'images/Q4.jpg', 'images/Q5.jpg', 'images/Q6.jpg', 'images/result1.jpg', 'images/result2.jpg', 'images/result3.jpg'].forEach(src => { const img = new Image(); img.src = src; }); }
-        const cursorContainer = document.getElementById('cursor-container');
-        window.addEventListener('mousemove', (e) => { if(Math.random() > 0.4) return; const p = document.createElement('span'); p.textContent = '🌶️'; p.className = 'particle text-2xl'; p.style.left = `${e.clientX}px`; p.style.top = `${e.clientY}px`; cursorContainer.appendChild(p); requestAnimationFrame(() => { p.style.transform = `translate(${Math.random() * 60 - 30}px, 60px) scale(0.3) rotate(${Math.random() * 360}deg)`; p.style.opacity = '0'; }); setTimeout(() => p.remove(), 700); });
+        const RESULTS = { 
+            baby: { level: "Baby", image: "images/result1.jpg", accent: "#74C0FC" }, 
+            adventurer: { level: "Adventurer", image: "images/result2.jpg", accent: "#FAB005" }, 
+            dragon: { level: "Dragon", image: "images/result3.jpg", accent: "#FF4D4D" } 
+        };
 
+        let currentQuestionIndex = 0, score = 0, finalResult = null;
+
+        function preloadAllImages() { 
+            ['images/Q1.jpg', 'images/Q2.jpg', 'images/Q3.jpg', 'images/Q4.jpg', 'images/Q5.jpg', 'images/Q6.jpg', 'images/result1.jpg', 'images/result2.jpg', 'images/result3.jpg'].forEach(src => { 
+                const img = new Image(); img.src = src; 
+            }); 
+        }
+
+        const cursorContainer = document.getElementById('cursor-container');
+        window.addEventListener('mousemove', (e) => { 
+            if(Math.random() > 0.4) return; 
+            const p = document.createElement('span'); 
+            p.textContent = '🌶️'; 
+            p.className = 'particle text-2xl'; 
+            p.style.left = `${e.clientX}px`; 
+            p.style.top = `${e.clientY}px`; 
+            cursorContainer.appendChild(p); 
+            requestAnimationFrame(() => { 
+                p.style.transform = `translate(${Math.random() * 60 - 30}px, 60px) scale(0.3) rotate(${Math.random() * 360}deg)`; 
+                p.style.opacity = '0'; 
+            }); 
+            setTimeout(() => p.remove(), 700); 
+        });
+
+        /* [태깅 추가 완료] 1. 언어 전환 태깅 */
         function setLanguage(lang) {
-            currentLang = lang; const c = CONTENT[lang];
+            currentLang = lang; 
+            const c = CONTENT[lang];
+            
+            // 데이터 영역으로 이벤트 전송
+            window.dataLayer.push({ 
+                'event': 'click_lang_toggle', 
+                'selected_language': lang 
+            });
+
             document.getElementById('lang-id').classList.toggle('lang-active', lang === 'id');
             document.getElementById('lang-en').classList.toggle('lang-active', lang === 'en');
             document.getElementById('lang-label').innerText = c.lang_label;
@@ -236,12 +267,33 @@
             document.getElementById('pre-result-desc').innerHTML = c.pre_result_desc;
             document.getElementById('pre-result-btn').innerText = c.pre_result_btn;
             document.getElementById('result-save-hint').innerText = c.res_hint;
-            document.querySelectorAll('[data-t]').forEach(el => { const key = el.getAttribute('data-t'); if (c[key]) el.innerHTML = c[key]; });
+            document.querySelectorAll('[data-t]').forEach(el => { 
+                const key = el.getAttribute('data-t'); 
+                if (c[key]) el.innerHTML = c[key]; 
+            });
             if (!document.getElementById('view-quiz').classList.contains('hidden')) renderQuestion();
         }
 
-        function switchView(viewId) { ['hero', 'quiz', 'analyzing', 'pre-result', 'result'].forEach(v => { const el = document.getElementById(`view-${v}`); if(el) el.classList.add('hidden'); }); const target = document.getElementById(`view-${viewId}`); if(target) { target.classList.remove('hidden'); target.classList.add('fade-in'); } window.scrollTo(0,0); }
-        function startQuiz() { window.dataLayer.push({ 'event': 'quiz_start' }); currentQuestionIndex = 0; score = 0; switchView('quiz'); renderQuestion(); }
+        function switchView(viewId) { 
+            ['hero', 'quiz', 'analyzing', 'pre-result', 'result'].forEach(v => { 
+                const el = document.getElementById(`view-${v}`); 
+                if(el) el.classList.add('hidden'); 
+            }); 
+            const target = document.getElementById(`view-${viewId}`); 
+            if(target) { 
+                target.classList.remove('hidden'); 
+                target.classList.add('fade-in'); 
+            } 
+            window.scrollTo(0,0); 
+        }
+
+        function startQuiz() { 
+            window.dataLayer.push({ 'event': 'quiz_start' }); 
+            currentQuestionIndex = 0; 
+            score = 0; 
+            switchView('quiz'); 
+            renderQuestion(); 
+        }
 
         function renderQuestion() {
             const c = CONTENT[currentLang], q = c.questions[currentQuestionIndex];
@@ -256,21 +308,82 @@
                 btn.className = `btn-hop w-full text-center p-6 md:p-8 rounded-[1.8rem] bg-white/60 border-2 border-white/80 font-bold text-gray-800 hover:bg-white shadow-sm font-sans transition-all active:scale-95 mx-auto flex items-center justify-center min-h-[80px] overflow-hidden`;
                 btn.innerHTML = `<span class="text-base md:text-lg leading-tight font-sans text-center w-full block px-2">${opt.text}</span>`;
                 btn.onclick = () => {
-                    window.dataLayer.push({ 'event': 'question_answered', 'question_number': currentQuestionIndex + 1, 'selected_option': opt.id });
+                    window.dataLayer.push({ 
+                        'event': 'question_answered', 
+                        'question_number': currentQuestionIndex + 1, 
+                        'selected_option': opt.id 
+                    });
                     score += opt.value;
-                    if (currentQuestionIndex < 5) { currentQuestionIndex++; renderQuestion(); }
-                    else { finishQuiz(); }
+                    if (currentQuestionIndex < 5) { 
+                        currentQuestionIndex++; 
+                        renderQuestion(); 
+                    } else { 
+                        finishQuiz(); 
+                    }
                 };
                 optionsContainer.appendChild(btn);
             });
         }
 
-        function finishQuiz() { window.dataLayer.push({'event': 'quiz_complete'}); switchView('analyzing'); if (score <= 2) finalResult = RESULTS.baby; else if (score <= 4) finalResult = RESULTS.adventurer; else finalResult = RESULTS.dragon; document.getElementById('result-image').src = finalResult.image; document.getElementById('result-glow').style.backgroundColor = finalResult.accent; setTimeout(() => { switchView('pre-result'); }, 2000); }
-        function viewFinalResult() { window.dataLayer.push({ 'event': 'SubmitForm', 'result_level': finalResult.level, 'conversion_type': 'quiz_result_view' }); switchView('result'); }
-        async function downloadResult() { window.dataLayer.push({'event': 'click_download'}); const link = document.createElement('a'); link.href = finalResult.image; link.download = `InsightOut_Result_${finalResult.level}.jpg`; link.click(); }
-        async function handleSmartShare() { window.dataLayer.push({'event': 'click_share'}); const text = currentLang === 'en' ? `I'm a ${finalResult.level}! Check your K-spicy level! 🔥` : `Saya level ${finalResult.level}! Cek level K-spicy kamu! 🔥`; if (navigator.share) { try { await navigator.share({ title: 'K-Spicy Level', text: text, url: window.location.href }); } catch (err) {} } else { const dummy = document.createElement('input'); document.body.appendChild(dummy); dummy.value = window.location.href; dummy.select(); document.execCommand('copy'); document.body.removeChild(dummy); const toast = document.getElementById('custom-toast'); toast.innerText = CONTENT[currentLang].toast_copy; toast.style.display = 'block'; setTimeout(() => { toast.style.display = 'none'; }, 2000); window.dataLayer.push({'event': 'click_copy_link'}); } }
-        function retakeQuiz() { window.dataLayer.push({'event': 'click_retake'}); location.reload(); }
-        window.onload = () => { setLanguage('en'); preloadAllImages(); };
+        function finishQuiz() { 
+            window.dataLayer.push({'event': 'quiz_complete'}); 
+            switchView('analyzing'); 
+            if (score <= 2) finalResult = RESULTS.baby; 
+            else if (score <= 4) finalResult = RESULTS.adventurer; 
+            else finalResult = RESULTS.dragon; 
+            
+            document.getElementById('result-image').src = finalResult.image; 
+            document.getElementById('result-glow').style.backgroundColor = finalResult.accent; 
+            setTimeout(() => { switchView('pre-result'); }, 2000); 
+        }
+
+        function viewFinalResult() { 
+            window.dataLayer.push({ 
+                'event': 'SubmitForm', 
+                'result_level': finalResult.level, 
+                'conversion_type': 'quiz_result_view' 
+            }); 
+            switchView('result'); 
+        }
+
+        async function downloadResult() { 
+            window.dataLayer.push({'event': 'click_download'}); 
+            const link = document.createElement('a'); 
+            link.href = finalResult.image; 
+            link.download = `InsightOut_Result_${finalResult.level}.jpg`; 
+            link.click(); 
+        }
+
+        async function handleSmartShare() { 
+            window.dataLayer.push({'event': 'click_share'}); 
+            const text = currentLang === 'en' ? `I'm a ${finalResult.level}! Check your K-spicy level! 🔥` : `Saya level ${finalResult.level}! Cek level K-spicy kamu! 🔥`; 
+            if (navigator.share) { 
+                try { await navigator.share({ title: 'K-Spicy Level', text: text, url: window.location.href }); } catch (err) {} 
+            } else { 
+                const dummy = document.createElement('input'); 
+                document.body.appendChild(dummy); 
+                dummy.value = window.location.href; 
+                dummy.select(); 
+                document.execCommand('copy'); 
+                document.body.removeChild(dummy); 
+                const toast = document.getElementById('custom-toast'); 
+                toast.innerText = CONTENT[currentLang].toast_copy; 
+                toast.style.display = 'block'; 
+                setTimeout(() => { toast.style.display = 'none'; }, 2000); 
+                window.dataLayer.push({'event': 'click_copy_link'}); 
+            } 
+        }
+
+        /* [태깅 추가 완료] 2. 다시 하기 태깅 */
+        function retakeQuiz() { 
+            window.dataLayer.push({'event': 'click_retake'}); 
+            location.reload(); 
+        }
+
+        window.onload = () => { 
+            setLanguage('en'); 
+            preloadAllImages(); 
+        };
     </script>
 </body>
 </html>
